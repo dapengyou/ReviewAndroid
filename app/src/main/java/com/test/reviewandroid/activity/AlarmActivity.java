@@ -47,6 +47,7 @@ public class AlarmActivity extends AppCompatActivity {
 
     }
 
+    //prepare方法是将资源同步缓存到内存中,一般加载本地较小的资源可以用这个,如果是较大的资源或者网络资源建议使用prepareAsync方法,异步加载
     private void randomPlay(List<Music> musicList) {
         int key;
         Random random = new Random();

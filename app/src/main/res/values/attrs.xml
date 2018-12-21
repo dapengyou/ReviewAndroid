@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ClockView">
+        <attr name="clock_backgroundColor" format="color" />
+        <attr name="clock_lightColor" format="color" />
+        <attr name="clock_darkColor" format="color" />
+        <attr name="clock_textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="StopWatchView">
+        <!--半径-->
+        <attr name="radius" format="dimension"/>
+        <!--外圆颜色-->
+        <attr name="circle_color" format="color"/>
+        <!--主刻度颜色-->
+        <attr name="main_scale_color" format="color"/>
+        <!--其他刻度颜色-->
+        <attr name="other_scale_color" format="color"/>
+        <!--最小刻度颜色-->
+        <attr name="third_scale_color" format="color"/>
+        <!--秒针针颜色-->
+        <attr name="big_pointer_color" format="color"/>
+        <!--毫秒针颜色-->
+        <attr name="small_pointer_color" format="color"/>
+        <!--小圆盘颜色-->
+        <attr name="small_dial_color" format="color"/>
+    </declare-styleable>
+
+</resources>

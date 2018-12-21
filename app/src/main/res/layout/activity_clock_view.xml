@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".view.ClockViewActivity">
+
+    <com.test.reviewandroid.view.ClockView
+        android:id="@+id/clock_view"
+        android:layout_width="360dp"
+        android:layout_height="360dp"
+        android:layout_weight="1"
+        app:clock_backgroundColor="#000000"
+        app:clock_darkColor="#80ffffff"
+        app:clock_lightColor="#ffffff" />
+
+
+    <com.test.reviewandroid.view.StopWatchView
+        android:visibility="gone"
+        android:id="@+id/stopwatchview"
+        android:layout_width="360dp"
+        android:layout_height="360dp" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center|bottom">
+
+        <ImageView
+            android:id="@+id/iv_restore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_restore"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_start" />
+
+
+    </LinearLayout>
+</LinearLayout>
