@@ -1,6 +1,7 @@
 package com.test.reviewandroid.view;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -71,6 +72,7 @@ public class ClockView extends View {
     private Path mSecondHandPath = new Path();
 
     private ValueAnimator animator; //执行的属性动画
+    private ValueAnimator backAnimator; //执行的属性动画
 
     private boolean isTrue;
 
@@ -79,13 +81,15 @@ public class ClockView extends View {
     private float secondCount = 0;
     private float minuteCount = 0;
     private String time;
+    private float mBackDegree;//回转的角度
+    private float mMilliSecondBackDegree;//回转的角度
 
     public ClockView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ClockView, 0, 0);
         mBackgroundColor = typedArray.getColor(R.styleable.ClockView_clock_backgroundColor, Color.parseColor("#000000"));
         mLightColor = typedArray.getColor(R.styleable.ClockView_clock_lightColor, Color.parseColor("#ffffff"));
-        mDarkColor = typedArray.getColor(R.styleable.ClockView_clock_darkColor, Color.parseColor("#80ffffff"));
+        mDarkColor = typedArray.getColor(R.styleable.ClockView_clock_darkColor, Color.parseColor("#40ffffff"));
         mTextSize = typedArray.getDimension(R.styleable.ClockView_clock_textSize, sp2px(context, 36));
 //        将TypedArray对象回收
         typedArray.recycle();
@@ -118,7 +122,7 @@ public class ClockView extends View {
         mTextPaint.setColor(mLightColor);
         //居中绘制文字
         mTextPaint.setTextAlign(Paint.Align.CENTER);
-        mTextPaint.setTextSize(mTextSize);
+//        mTextPaint.setTextSize(mTextSize);
 
         //刻度线
         mScaleLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -230,6 +234,7 @@ public class ClockView extends View {
         //梯度扫描渐变，以(w/2,h/2)为中心点，两种起止颜色梯度渐变，，float数组表示，[0,0.75)为起始颜色所占比例，[0.75,1}为起止颜色渐变所占比例
         mSweepGradient = new SweepGradient(w / 2, h / 2, new int[]{mDarkColor, mLightColor}, new float[]{0.75f, 1});
 
+        mTextSize = (getWidth() - mPaddingLeft - mPaddingRight - mScaleLength) / 6;
 
     }
 
@@ -298,6 +303,46 @@ public class ClockView extends View {
         });
     }
 
+    //初始化属性动画，毫秒针回归动画
+    private void initBackAnimator() {
+        backAnimator = ValueAnimator.ofFloat(360, 0);//每秒钟毫秒针转一圈，正好是360度
+        backAnimator.setDuration(500);
+        backAnimator.setInterpolator(new LinearInterpolator());//设置线性执行动画
+        backAnimator.setRepeatCount(0);//设置设置无限循环
+
+        //设置 值的更新监听器  即：值每次改变、变化一次,该方法就会被调用一次
+        backAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                //时间计时归0
+
+                Log.d(TAG, "onAnimationUpdate:=== " + (float) animation.getAnimatedValue());
+                Log.d(TAG, "onAnimationUpdate: " + (360 - (float) animation.getAnimatedValue()) / 2);
+                mSecondDegree = mBackDegree - (360 - (float) animation.getAnimatedValue()) / (360f / mBackDegree);
+                mMilliSecondDegree = mMilliSecondBackDegree - (360 - (float) animation.getAnimatedValue()) / (360f / mMilliSecondBackDegree);
+
+
+                Log.d(TAG, "mBackDegree:"+mBackDegree+"onAnimationUpdate: ////" + mSecondDegree);
+                invalidate();
+            }
+        });
+
+        //Animation类通过监听动画开始 / 结束 / 重复 / 取消时刻来进行一系列操作
+        backAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                //开始动画运行次数
+                count = 0;
+
+                //角度
+                mMilliSecondDegree = 0;
+                mSecondDegree = 0;
+            }
+        });
+    }
+
+
     /**
      * 秒针
      */
@@ -359,6 +404,7 @@ public class ClockView extends View {
             minute = "0" + (int) minuteCount;
         }
         time = minute + ":" + second + "." + milliSecond;
+        mTextPaint.setTextSize(mTextSize);
 
         mCanvas.drawText(time, getWidth() / 2, getHeight() / 2, mTextPaint);
         mCanvas.restore();
@@ -368,7 +414,7 @@ public class ClockView extends View {
      * @return : void
      * @date 创建时间: 2018/12/19
      * @author lady_zhou
-     * @Description 画秒针表盘
+     * @Description 画毫秒针表盘
      */
     private void drawMilliSecondCircle() {
         //毫秒表盘
@@ -476,6 +522,8 @@ public class ClockView extends View {
         if (animator != null && animator.isRunning()) {
             long playTime = animator.getCurrentPlayTime();
             animator.cancel();
+            mBackDegree = mSecondDegree;
+            mMilliSecondBackDegree = mMilliSecondDegree;
             return playTime;
         }
         return 0;
@@ -507,18 +555,17 @@ public class ClockView extends View {
     public void clean() {
         if (animator != null && !animator.isStarted() && !animator.isRunning()) {
             animator.end();
-            //开始动画运行次数
-            count = 0;
 
-            //时间计时显示
-            minuteCount = 0;
-            milliSecondCount = 0;
-            secondCount = 0;
+        }
 
-            //角度
-            mMilliSecondDegree = 0;
-            mSecondDegree = 0;
+        minuteCount = 0;
+        milliSecondCount = 0;
+        secondCount = 0;
 
+        initBackAnimator();
+
+        if (backAnimator != null && !backAnimator.isStarted()) {
+            backAnimator.start();
         }
     }
 

@@ -11,23 +11,18 @@
 
     <com.test.reviewandroid.view.ClockView
         android:id="@+id/clock_view"
-        android:layout_width="360dp"
-        android:layout_height="360dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         app:clock_backgroundColor="#000000"
         app:clock_darkColor="#80ffffff"
         app:clock_lightColor="#ffffff" />
 
 
-    <com.test.reviewandroid.view.StopWatchView
-        android:visibility="gone"
-        android:id="@+id/stopwatchview"
-        android:layout_width="360dp"
-        android:layout_height="360dp" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:visibility="gone">
 
     </android.support.v7.widget.RecyclerView>
