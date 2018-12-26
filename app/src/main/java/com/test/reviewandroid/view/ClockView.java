@@ -265,19 +265,19 @@ public class ClockView extends View {
             //动画开始时执行
             @Override
             public void onAnimationStart(Animator animation) {
-                Log.d("TAG", "onAnimationStart");
+                Log.d(TAG, "onAnimationStart");
             }
 
             //动画结束时执行
             @Override
             public void onAnimationEnd(Animator animation) {
-                Log.d("TAG", "onAnimationEnd");
+                Log.d(TAG, "onAnimationEnd");
             }
 
             //动画取消时执行
             @Override
             public void onAnimationCancel(Animator animation) {
-                Log.d("TAG", "onAnimationCancel");
+                Log.d(TAG, "onAnimationCancel");
             }
 
             //动画重复时执行
@@ -322,7 +322,7 @@ public class ClockView extends View {
                 mMilliSecondDegree = mMilliSecondBackDegree - (360 - (float) animation.getAnimatedValue()) / (360f / mMilliSecondBackDegree);
 
 
-                Log.d(TAG, "mBackDegree:"+mBackDegree+"onAnimationUpdate: ////" + mSecondDegree);
+                Log.d(TAG, "mBackDegree:" + mBackDegree + "onAnimationUpdate: ////" + mSecondDegree);
                 invalidate();
             }
         });
@@ -569,6 +569,18 @@ public class ClockView extends View {
         }
     }
 
+    public void stopAnimator() {
+        if (animator != null) {
+            animator.end();
+        }
+    }
+
+    /**
+     * @return : java.lang.String
+     * @date 创建时间: 2018/12/25
+     * @author lady_zhou
+     * @Description 记录时间
+     */
     public String recordTime() {
         if (animator != null && animator.isRunning()) {
             return time;

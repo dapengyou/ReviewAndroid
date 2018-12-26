@@ -9,7 +9,8 @@ import java.io.Serializable;
  */
 public class ClockViewBean implements Serializable {
     private String id;
-    private String  time;
+    private String time; //当前的时间记录
+    private String differenceTime;//差值
 
     public String getId() {
         return id;
@@ -25,5 +26,13 @@ public class ClockViewBean implements Serializable {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getDifferenceTime() {
+        return differenceTime;
+    }
+
+    public void setDifferenceTime(String differenceTime) {
+        this.differenceTime = differenceTime;
     }
 }

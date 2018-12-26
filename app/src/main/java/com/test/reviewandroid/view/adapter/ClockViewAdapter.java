@@ -1,8 +1,6 @@
 package com.test.reviewandroid.view.adapter;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -24,6 +22,7 @@ public class ClockViewAdapter extends BaseQuickAdapter<ClockViewBean, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, ClockViewBean clockViewBean) {
         helper.setText(R.id.tv_id, clockViewBean.getId())
+                .setText(R.id.tv_diffenerce_time, clockViewBean.getDifferenceTime())
                 .setText(R.id.tv_time, clockViewBean.getTime());
     }
 
