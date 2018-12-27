@@ -60,6 +60,7 @@ public class ClockView extends View {
     /* 角度 */
     private float mSecondDegree;//秒针转过的角度
     private float mMilliSecondDegree; //毫秒针转过的角度
+    private float mRound = 360f;//一圈的总度数
 
     /* 加一个默认的padding值，为了防止用camera旋转时钟时造成四周超出view大小 */
     private float mDefaultPadding;
@@ -77,10 +78,10 @@ public class ClockView extends View {
     private boolean isTrue;
 
     private int count;//动画执行次数,
-    private float milliSecondCount = 0;
-    private float secondCount = 0;
-    private float minuteCount = 0;
-    private String time;
+    private float milliSecondCount = 0;//毫秒针走的次数
+    private float secondCount = 0;//秒针走的次数
+    private float minuteCount = 0;//分针走的次数
+    private String time;//记录的时间
     private float mBackDegree;//回转的角度
     private float mMilliSecondBackDegree;//回转的角度
 
@@ -217,8 +218,9 @@ public class ClockView extends View {
                 h - getPaddingTop() - getPaddingBottom()) / 2;
 
         mDefaultPadding = 0.12f * mRadius;
-        mMillisecondRadius = 0.25f * mRadius;
+        mMillisecondRadius = 0.25f * mRadius;//毫秒针半径
 
+        //计算padding数值
         mPaddingLeft = mDefaultPadding + w / 2 - mRadius + getPaddingLeft();
         mPaddingRight = mDefaultPadding + w / 2 - mRadius + getPaddingRight();
         mPaddingTop = mDefaultPadding + h / 2 - mRadius + getPaddingTop();
@@ -240,7 +242,7 @@ public class ClockView extends View {
 
     //初始化属性动画，毫秒针
     private void initAnimator() {
-        animator = ValueAnimator.ofFloat(0, 360);//每秒钟毫秒针转一圈，正好是360度
+        animator = ValueAnimator.ofFloat(0, mRound);//每秒钟毫秒针转一圈，正好是360度
         animator.setDuration(1000);
         animator.setInterpolator(new LinearInterpolator());//设置线性执行动画
         animator.setRepeatCount(ValueAnimator.INFINITE);//设置无限循环
@@ -252,10 +254,13 @@ public class ClockView extends View {
                 //设置动画监听，获取当前动画的值，重新计算指针转过的角度，然后重绘
                 mMilliSecondDegree = (float) animation.getAnimatedValue();
                 //毫秒数
-                milliSecondCount = (float) animation.getAnimatedValue() / 6;
+//                milliSecondCount = (float) animation.getAnimatedValue() / 6;
+                milliSecondCount = (float) animation.getAnimatedValue() / 3.6f;
                 //秒针角度
-                mSecondDegree = 6 * count + (float) animation.getAnimatedValue() / 60;
+                mSecondDegree = 6 * secondCount + (float) animation.getAnimatedValue() / 60;
 
+                Log.d(TAG, "onAnimationUpdate: count\t\t" + count + "\t\tanimation.getAnimatedValue()\t\t\t" + animation.getAnimatedValue() +
+                        "\t\tanimation.getAnimatedValue() / 60\t\t\t" + ((float) animation.getAnimatedValue() / 60));
                 invalidate();
             }
         });
@@ -289,8 +294,8 @@ public class ClockView extends View {
                 //秒针角度是毫秒计数的6倍
                 mSecondDegree = 6 * count;
                 count++;
-                secondCount = count;
-                if (count >= 60) {
+                secondCount++;
+                if (count >= 100) {
                     count = 0;
                 }
                 //变换分钟计数
@@ -305,7 +310,7 @@ public class ClockView extends View {
 
     //初始化属性动画，毫秒针回归动画
     private void initBackAnimator() {
-        backAnimator = ValueAnimator.ofFloat(360, 0);//每秒钟毫秒针转一圈，正好是360度
+        backAnimator = ValueAnimator.ofFloat(mRound, 0);//每秒钟毫秒针转一圈，正好是360度
         backAnimator.setDuration(500);
         backAnimator.setInterpolator(new LinearInterpolator());//设置线性执行动画
         backAnimator.setRepeatCount(0);//设置设置无限循环
@@ -314,15 +319,13 @@ public class ClockView extends View {
         backAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                //时间计时归0
+                //计算角度
+                mSecondDegree = mBackDegree - (mRound - (float) animation.getAnimatedValue()) / (mRound / mBackDegree);
+                mMilliSecondDegree = mMilliSecondBackDegree - (mRound - (float) animation.getAnimatedValue()) / (mRound / mMilliSecondBackDegree);
 
-                Log.d(TAG, "onAnimationUpdate:=== " + (float) animation.getAnimatedValue());
-                Log.d(TAG, "onAnimationUpdate: " + (360 - (float) animation.getAnimatedValue()) / 2);
-                mSecondDegree = mBackDegree - (360 - (float) animation.getAnimatedValue()) / (360f / mBackDegree);
-                mMilliSecondDegree = mMilliSecondBackDegree - (360 - (float) animation.getAnimatedValue()) / (360f / mMilliSecondBackDegree);
+                Log.d(TAG, "mBackDegree: 需要回转的角度\t\t" + mBackDegree + "mSecondDegree: 秒针角度\t\t" +
+                        mSecondDegree + "mMilliSecondDegree: 毫秒针角度\t\t" + mMilliSecondDegree);
 
-
-                Log.d(TAG, "mBackDegree:" + mBackDegree + "onAnimationUpdate: ////" + mSecondDegree);
                 invalidate();
             }
         });
@@ -557,7 +560,7 @@ public class ClockView extends View {
             animator.end();
 
         }
-
+        //时间计时归0
         minuteCount = 0;
         milliSecondCount = 0;
         secondCount = 0;

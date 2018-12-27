@@ -46,9 +46,11 @@ public class ClockViewActivity extends AppCompatActivity {
     private String mDifferenceTime;//前后秒的差值
 
     /*组成差值的分，秒，毫秒数值*/
-    int minute;
-    int second;
-    int milliSecond;
+    private int minute;
+    private int second;
+    private int milliSecond;
+
+    private int mValue = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +151,7 @@ public class ClockViewActivity extends AppCompatActivity {
                 minute = mMinute - mOldMinute - 1;
                 if (mMilliSecond - mOldMilliSecond < 0) {
                     second = 60 + mSecond - mOldSecond - 1;
-                    milliSecond = 60 + mMilliSecond - mOldMilliSecond;
+                    milliSecond = mValue + mMilliSecond - mOldMilliSecond;
                 } else {
                     second = 60 + mSecond - mOldSecond;
                     milliSecond = mMilliSecond - mOldMilliSecond;
@@ -158,7 +160,7 @@ public class ClockViewActivity extends AppCompatActivity {
                 minute = mMinute - mOldMinute;
                 if (mMilliSecond - mOldMilliSecond < 0) {
                     second = mSecond - mOldSecond - 1;
-                    milliSecond = 60 + mMilliSecond - mOldMilliSecond;
+                    milliSecond = mValue + mMilliSecond - mOldMilliSecond;
                 } else {
                     second = mSecond - mOldSecond;
                     milliSecond = mMilliSecond - mOldMilliSecond;
@@ -168,7 +170,7 @@ public class ClockViewActivity extends AppCompatActivity {
             minute = 0;
             if (mMilliSecond - mOldMilliSecond < 0) {
                 second = mSecond - mOldSecond - 1;
-                milliSecond = 60 + mMilliSecond - mOldMilliSecond;
+                milliSecond = mValue + mMilliSecond - mOldMilliSecond;
             } else {
                 second = mSecond - mOldSecond;
                 milliSecond = mMilliSecond - mOldMilliSecond;
