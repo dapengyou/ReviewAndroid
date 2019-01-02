@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.test.reviewandroid.activity.LineActivity;
 import com.test.reviewandroid.view.ClockViewActivity;
+import com.test.reviewandroid.view.ImageViewActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.bt_activity, R.id.bt_view})
+    @OnClick({R.id.bt_activity, R.id.bt_view, R.id.bt_image})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_activity:
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.bt_view:
                 startActivity(new Intent(this, ClockViewActivity.class));
+                break;
+            case R.id.bt_image:
+                startActivity(new Intent(this, ImageViewActivity.class));
                 break;
         }
     }

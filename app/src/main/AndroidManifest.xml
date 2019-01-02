@@ -37,8 +37,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.AlarmActivity"></activity>
-        <activity android:name=".view.ClockViewActivity"></activity>
+        <activity android:name=".activity.AlarmActivity" />
+        <activity android:name=".view.ClockViewActivity" />
+        <activity android:name=".view.ImageViewActivity"></activity>
     </application>
 
 </manifest>
