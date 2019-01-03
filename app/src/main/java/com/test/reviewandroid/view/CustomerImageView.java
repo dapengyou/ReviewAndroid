@@ -19,7 +19,7 @@ import android.widget.ImageView;
 /**
  * @createTime: 2018/12/29
  * @author: lady_zhou
- * @Description:
+ * @Description: 如果在遇到特殊的手机分辨率时可以通过+0.01 来避免跳过的if条件
  */
 public class CustomerImageView extends android.support.v7.widget.AppCompatImageView implements ViewTreeObserver.OnGlobalLayoutListener,
         ScaleGestureDetector.OnScaleGestureListener, View.OnTouchListener {
