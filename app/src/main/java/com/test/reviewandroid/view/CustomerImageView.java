@@ -5,6 +5,7 @@ import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -367,17 +368,26 @@ public class CustomerImageView extends android.support.v7.widget.AppCompatImageV
             mLastY = y;
         }
         mLastPointerCount = pointerCount;
+
+        RectF rectF = getMatrixRectF();
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_MOVE:
                 //偏移量
                 float dx = x - mLastX;
                 float dy = y - mLastY;
 
+                //由于浮点数操作  防止误差
+                if ((rectF.width() > getWidth() + 0.01) || (rectF.height() > getHeight() + 0.01)) {
+                    if (getParent() instanceof ViewPager) {
+                        getParent().requestDisallowInterceptTouchEvent(true);//请求不被父控件拦截
+                    }
+                }
+
                 if (!isCanDrag) {
                     isCanDrag = isMoveAction(dx, dy);
                 }
                 if (isCanDrag) {
-                    RectF rectF = getMatrixRectF();
                     if (getDrawable() != null) {
                         isCheckLeftAndRight = isCheckTopAndBootom = true;
                         //如果宽度小于控件的宽度，不允许横向移动
@@ -402,6 +412,13 @@ public class CustomerImageView extends android.support.v7.widget.AppCompatImageV
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL://手指抬起
                 mLastPointerCount = 0;
+                break;
+            case MotionEvent.ACTION_DOWN:
+                if ((rectF.width() > getWidth() + 0.01) || (rectF.height() > getHeight() + 0.01)) {
+                    if (getParent() instanceof ViewPager) {
+                        getParent().requestDisallowInterceptTouchEvent(true);//请求不被父控件拦截
+                    }
+                }
                 break;
             default:
                 break;

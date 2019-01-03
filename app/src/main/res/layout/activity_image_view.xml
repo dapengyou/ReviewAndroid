@@ -6,9 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".view.ImageViewActivity">
 
-    <com.test.reviewandroid.view.CustomerImageView
-        android:id="@+id/customer_iamge_view"
+    <!--<com.test.reviewandroid.view.CustomerImageView-->
+    <!--android:id="@+id/customer_iamge_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:src="@mipmap/icon_beijing" />-->
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pageer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/icon_beijing" />
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 </LinearLayout>
