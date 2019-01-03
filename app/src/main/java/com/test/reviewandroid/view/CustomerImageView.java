@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -37,10 +38,15 @@ public class CustomerImageView extends android.support.v7.widget.AppCompatImageV
     private float mLastX;
     private float mLastY;
 
-    private int mTouchSlop;
+    private int mTouchSlop;//系统的值
     private boolean isCanDrag;//是否可以移动
     private boolean isCheckLeftAndRight;
     private boolean isCheckTopAndBootom;
+
+
+    /*双击放大与缩小*/
+    private GestureDetector mGestureDetector;
+    private boolean isAutoScale;//避免多次放大缩小
 
     public CustomerImageView(Context context) {
         this(context, null);
@@ -61,6 +67,86 @@ public class CustomerImageView extends android.support.v7.widget.AppCompatImageV
 
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();//拿到可以作比较的值
 
+        //⑦
+        mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                if (isAutoScale) {
+                    return true;
+                }
+                float x = e.getX();
+                float y = e.getY();
+
+                if (getScale() < mMidScale) {
+//                    mScaleMatrix.postScale(mMidScale / getScale(), mMidScale / getScale(), x, y);
+//                    setImageMatrix(mScaleMatrix);
+                    postDelayed(new AutoScaleRunnable(mMidScale, x, y), 16);
+                    isAutoScale = true;
+                } else {
+//                    mScaleMatrix.postScale(mInitScale / getScale(), mInitScale / getScale(), x, y);
+//                    setImageMatrix(mScaleMatrix);
+                    postDelayed(new AutoScaleRunnable(mInitScale, x, y), 16);
+                    isAutoScale = true;
+
+
+                }
+                return super.onDoubleTap(e);
+            }
+        });
+
+    }
+
+    /**
+     * @author lady_zhou
+     * @createTime: 2019/1/3
+     * @Description 自动缓慢放大和缩小   ⑦
+     */
+    private class AutoScaleRunnable implements Runnable {
+
+        //缩放的目标值
+        private float mTargetScale;
+        //缩放的中心点
+        private float x;
+        private float y;
+
+        private final float BIGGER = 1.07f;
+        private final float SMALL = 0.93f;
+
+        //临时变量
+        private float tmpScale;
+
+        public AutoScaleRunnable(float targetScale, float x, float y) {
+            mTargetScale = targetScale;
+            this.x = x;
+            this.y = y;
+
+            if (getScale() < mTargetScale) {
+                tmpScale = BIGGER;
+            }
+            if (getScale() > mTargetScale) {
+                tmpScale = SMALL;
+            }
+        }
+
+        @Override
+        public void run() {
+            //进行缩放
+            mScaleMatrix.postScale(tmpScale, tmpScale, x, y);
+            checkBorderAndCenterWhenScale();
+            setImageMatrix(mScaleMatrix);
+
+            float currentScale = getScale();
+            if ((tmpScale > 1.0f && currentScale < mTargetScale) || (tmpScale < 1.0f && currentScale > mTargetScale)) {
+                postDelayed(this, 16);
+            } else {
+                //设置为我们的目标值
+                float scale = mTargetScale / currentScale;
+                mScaleMatrix.postScale(scale, scale, x, y);
+                checkBorderAndCenterWhenScale();
+                setImageMatrix(mScaleMatrix);
+                isAutoScale = false;
+            }
+        }
     }
 
     /**
@@ -156,7 +242,7 @@ public class CustomerImageView extends android.support.v7.widget.AppCompatImageV
         return values[Matrix.MSCALE_X];
     }
 
-    /*多点触控 ③*/
+    /*多点触控  缩放区间 initScale,maxScale   ③*/
     @Override
     public boolean onScale(ScaleGestureDetector detector) {
         float scale = getScale();
@@ -166,7 +252,7 @@ public class CustomerImageView extends android.support.v7.widget.AppCompatImageV
             return true;
         }
         //缩放范围的控制
-        if ((scale < mMaxScale && scaleFactor > 1.0f) || (scale > mInitScale && scaleFactor < 1.0f)) {
+        if ((scale < mMaxScale && scaleFactor > 1.0f) || (scale > mInitScale && scaleFactor < 1.0f)) {//没有达到放大值或者没有达到最小值
             if (scale * scaleFactor < mInitScale) {
                 scaleFactor = mInitScale / scale;
             }
@@ -259,6 +345,9 @@ public class CustomerImageView extends android.support.v7.widget.AppCompatImageV
     /*触摸 */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        if (mGestureDetector.onTouchEvent(event)) {
+            return true;
+        }
         mScaleGestureDetector.onTouchEvent(event);//拿到手指触控的坐标操作  ③
 
         //多点触控的中心点   ⑤
@@ -280,6 +369,7 @@ public class CustomerImageView extends android.support.v7.widget.AppCompatImageV
         mLastPointerCount = pointerCount;
         switch (event.getAction()) {
             case MotionEvent.ACTION_MOVE:
+                //偏移量
                 float dx = x - mLastX;
                 float dy = y - mLastY;
 
@@ -310,8 +400,6 @@ public class CustomerImageView extends android.support.v7.widget.AppCompatImageV
                 }
                 break;
             case MotionEvent.ACTION_UP:
-
-                break;
             case MotionEvent.ACTION_CANCEL://手指抬起
                 mLastPointerCount = 0;
                 break;
@@ -327,7 +415,7 @@ public class CustomerImageView extends android.support.v7.widget.AppCompatImageV
      * @return : boolean
      * @date 创建时间: 2019/1/2
      * @author lady_zhou
-     * @Description 判断是否是move  ⑤
+     * @Description 判断是否足以触发move  ⑤
      */
     private boolean isMoveAction(float dx, float dy) {
 
