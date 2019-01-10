@@ -1,10 +1,12 @@
 package com.test.reviewandroid.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.v4.util.LruCache;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -100,7 +102,7 @@ public class CustomerImageView extends android.support.v7.widget.AppCompatImageV
     /**
      * @author lady_zhou
      * @createTime: 2019/1/3
-     * @Description 自动缓慢放大和缩小   ⑦
+     * @Description 自动缓慢放大和缩小   ⑦  Runnable + postDelayed + GestureDetector
      */
     private class AutoScaleRunnable implements Runnable {
 
@@ -193,6 +195,7 @@ public class CustomerImageView extends android.support.v7.widget.AppCompatImageV
             int height = getHeight();
             //得到图片  以及宽和高
             Drawable drawable = getDrawable();
+            LruCache cache = new LruCache(19);
             if (drawable == null) {
                 return;
             }

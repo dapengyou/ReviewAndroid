@@ -1,28 +1,22 @@
 package com.test.reviewandroid.activity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.test.reviewandroid.R;
-import com.test.reviewandroid.bean.Music;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * @createTime: 2019/1/10
+ * @author  lady_zhou
+ * @Description  activity与service通信
+ */
 public class ReviewServiceActivity extends AppCompatActivity {
 
     @BindView(R.id.et_time)

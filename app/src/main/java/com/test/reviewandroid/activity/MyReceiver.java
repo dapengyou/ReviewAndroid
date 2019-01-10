@@ -39,7 +39,9 @@ public class MyReceiver extends BroadcastReceiver {
             mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             Intent  alarmIntent = new Intent(context, AlarmActivity.class);
-
+//            alarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//            context.startActivity(alarmIntent);
             Intent[] intents = {mainIntent, alarmIntent};
 
             context.startActivities(intents);

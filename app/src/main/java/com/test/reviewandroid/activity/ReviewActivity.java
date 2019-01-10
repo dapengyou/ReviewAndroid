@@ -26,9 +26,9 @@ public class ReviewActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         Log.d(TAG, "onRestoreInstanceState: " + "调用onRestoreInstanceState");
         super.onRestoreInstanceState(savedInstanceState);
-//        mTvShow.setText(savedInstanceState.getString(TURN));
-        mTvShow.setText(mEtName.getText().toString());
+        mTvShow.setText(savedInstanceState.getString(TURN));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: 调用onCreate");
@@ -79,19 +79,19 @@ public class ReviewActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+    protected void onSaveInstanceState(Bundle outState) {
         Log.d(TAG, "onSaveInstanceState: 调用onSaveInstanceState");
-
-        super.onSaveInstanceState(outState, outPersistentState);
+        super.onSaveInstanceState(outState);
         outState.putString(TURN, mEtName.getText().toString());
+
     }
 
     /**
-     * @date 创建时间: 2018/12/1
-     * @author  lady_zhou
-     * @Description  activity不被重建
      * @param newConfig :
      * @return : void
+     * @date 创建时间: 2018/12/1
+     * @author lady_zhou
+     * @Description activity不被重建
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

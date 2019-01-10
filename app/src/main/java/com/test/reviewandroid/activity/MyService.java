@@ -2,6 +2,7 @@ package com.test.reviewandroid.activity;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import java.util.TimerTask;
  * @Description:
  */
 public class MyService extends Service {
+    private static final String TAG = "MyService";
     public static final String DATA = "data";
     private int data;
     private Calendar mCalendar;
@@ -50,13 +52,13 @@ public class MyService extends Service {
             public void run() {
                 mCalendar = Calendar.getInstance();
                 if (mCalendar.get(Calendar.MINUTE) == (minute + data)) {
-                    Log.d("MyReceiver", "发送广播了");
+                    Log.d(TAG, "发送广播了");
                     Intent intent = new Intent("myReceiver");
                     sendBroadcast(intent);
                     mTimer.cancel();
                     mTimer = null;
                 } else {
-                    Log.d("MyReceiver", "现在时间:" + mCalendar.get(Calendar.MINUTE) + "需要时间" + (minute + data) + "还没到时间");
+                    Log.d(TAG, "现在时间:" + mCalendar.get(Calendar.MINUTE) + "需要时间" + (minute + data) + "还没到时间");
 
                 }
             }

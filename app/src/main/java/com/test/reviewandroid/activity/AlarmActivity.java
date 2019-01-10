@@ -1,8 +1,12 @@
 package com.test.reviewandroid.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,8 +29,8 @@ public class AlarmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
-        getMusicInfo();
-
+//        getMusicInfo();
+        requestPermission();
         if (mMediaPlayer == null) {
             mMediaPlayer = new MediaPlayer();
 //            mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -47,22 +51,44 @@ public class AlarmActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @return : void
+     * @date 创建时间: 2019/1/10
+     * @author lady_zhou
+     * @Description 动态申请权限
+     */
+    private void requestPermission() {
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) { //表示未授权时
+            //进行授权
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        } else {
+            getMusicInfo();
+        }
+    }
+
     //prepare方法是将资源同步缓存到内存中,一般加载本地较小的资源可以用这个,如果是较大的资源或者网络资源建议使用prepareAsync方法,异步加载
     private void randomPlay(List<Music> musicList) {
         int key;
         Random random = new Random();
-        key = random.nextInt(musicList.size() - 1);
-        //从sd卡中加载音乐
-        try {
-            mMediaPlayer.reset();
-            mMediaPlayer.setDataSource(musicList.get(key).getPath());
-            //需使用异步缓
+        if (musicList.size() != 0) {
+            key = random.nextInt(musicList.size() - 1);
+            //从sd卡中加载音乐
+            try {
+                mMediaPlayer.reset();
+                mMediaPlayer.setDataSource(musicList.get(key).getPath());
+                //需使用异步缓
 //            mMediaPlayer.prepareAsync();
-            mMediaPlayer.prepare();
-            mMediaPlayer.start();
-        } catch (IOException e) {
-            e.printStackTrace();
+                mMediaPlayer.prepare();
+                mMediaPlayer.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            return;
         }
+
     }
 
     private List<Music> getMusicInfo() {
