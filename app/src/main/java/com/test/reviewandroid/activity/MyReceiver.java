@@ -13,10 +13,10 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
-        if(intent.getAction().equals("myReceiver")) {
+//        if(intent.getAction().equals("myReceiver")) {
             Log.d("MyReceiver", "收到广播了");
             showActivity(context);
-        }
+//        }
     }
 
     private void showActivity(Context context) {

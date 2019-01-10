@@ -44,18 +44,20 @@ public class MyService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        //广播动态注册
-        if (mMyReceiver == null) {
-            mMyReceiver = new MyReceiver();
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction("myReceiver");
-            registerReceiver(mMyReceiver, intentFilter);
-
-        }
-    }
+//    @Override
+//    public void onCreate() {
+//        super.onCreate();
+//        //广播动态注册
+//        if (mMyReceiver == null) {
+//            //  实例化BroadcastReceiver子类 &  IntentFilter
+//            mMyReceiver = new MyReceiver();
+//            IntentFilter intentFilter = new IntentFilter();
+//            intentFilter.addAction("myReceiver");
+//            //动态注册：调用Context的registerReceiver（）方法
+//            registerReceiver(mMyReceiver, intentFilter);
+//
+//        }
+//    }
 
     private void startRemind(final int data) {
         //得到日历实例，主要是为了下面的获取时间
@@ -68,12 +70,13 @@ public class MyService extends Service {
                 if (mCalendar.get(Calendar.MINUTE) == (minute + data)) {
                     Log.d(TAG, "发送广播了");
                     //用于静态注册发送
-//                    Intent intent = new Intent("myReceiver");
-//                    sendBroadcast(intent);
-                    //用于动态注册发送
                     Intent intent = new Intent("myReceiver");
-//                    intent.setPackage(getPackageName());
+                    intent.setPackage(getPackageName());//解决问题：Background execution not allowed: receiving Intent { act=myReceiver flg=0x10 } to xxx
                     sendBroadcast(intent);
+                    //用于动态注册发送
+//                    Intent intent = new Intent("myReceiver");
+////                    intent.setPackage(getPackageName());
+//                    sendBroadcast(intent);
 
                     mTimer.cancel();
                     mTimer = null;
@@ -87,12 +90,12 @@ public class MyService extends Service {
 
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //广播动态销毁
-        unregisterReceiver(mMyReceiver);
-        mMyReceiver = null;
-        Log.d(TAG, "onDestroy: 服务销毁，广播销毁");
-    }
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        //广播动态销毁
+//        unregisterReceiver(mMyReceiver);
+//        mMyReceiver = null;
+//        Log.d(TAG, "onDestroy: 服务销毁，广播销毁");
+//    }
 }
