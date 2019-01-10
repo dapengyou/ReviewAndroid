@@ -24,6 +24,7 @@ public class MyService extends Service {
     private Calendar mCalendar;
     private Timer mTimer;
     private int minute;
+    private MyReceiver mMyReceiver;
 
     @Nullable
     @Override
@@ -43,6 +44,19 @@ public class MyService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        //广播动态注册
+        if (mMyReceiver == null) {
+            mMyReceiver = new MyReceiver();
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction("myReceiver");
+            registerReceiver(mMyReceiver, intentFilter);
+
+        }
+    }
+
     private void startRemind(final int data) {
         //得到日历实例，主要是为了下面的获取时间
         mCalendar = Calendar.getInstance();
@@ -53,8 +67,14 @@ public class MyService extends Service {
                 mCalendar = Calendar.getInstance();
                 if (mCalendar.get(Calendar.MINUTE) == (minute + data)) {
                     Log.d(TAG, "发送广播了");
+                    //用于静态注册发送
+//                    Intent intent = new Intent("myReceiver");
+//                    sendBroadcast(intent);
+                    //用于动态注册发送
                     Intent intent = new Intent("myReceiver");
+//                    intent.setPackage(getPackageName());
                     sendBroadcast(intent);
+
                     mTimer.cancel();
                     mTimer = null;
                 } else {
@@ -67,4 +87,12 @@ public class MyService extends Service {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //广播动态销毁
+        unregisterReceiver(mMyReceiver);
+        mMyReceiver = null;
+        Log.d(TAG, "onDestroy: 服务销毁，广播销毁");
+    }
 }

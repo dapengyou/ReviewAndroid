@@ -28,14 +28,14 @@
 
         <service android:name=".activity.MyService" />
 
-        <receiver
-            android:name=".activity.MyReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="myReceiver" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver-->
+            <!--android:name=".activity.MyReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="myReceiver" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <activity android:name=".activity.AlarmActivity" />
         <activity android:name=".view.ClockViewActivity" />

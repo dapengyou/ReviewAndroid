@@ -23,7 +23,8 @@ import java.util.Random;
 public class AlarmActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
-    private List<Music> musicList;
+    private List<Music> musicList = new ArrayList<>(); // 创建一个集合存储读取的歌曲信息
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +93,7 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     private List<Music> getMusicInfo() {
-        // 创建一个集合存储读取的歌曲信息
-        musicList = new ArrayList<>();
+
         //读取数据库中歌曲信息，获取手机内存上的音乐资源 INTERNAL_CONTENT_URI，，外置存储卡中的音乐信息EXTERNAL_CONTENT_URI
         Cursor cursor = getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null,
                 MediaStore.Audio.Media.DEFAULT_SORT_ORDER);

@@ -9,12 +9,14 @@ import com.test.reviewandroid.MainActivity;
 import com.test.reviewandroid.utils.SystemUtils;
 
 public class MyReceiver extends BroadcastReceiver {
-
+    public static final String ACTION= "action";
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
-        Log.d("MyReceiver", "收到广播了");
-        showActivity(context);
+        if(intent.getAction().equals("myReceiver")) {
+            Log.d("MyReceiver", "收到广播了");
+            showActivity(context);
+        }
     }
 
     private void showActivity(Context context) {
