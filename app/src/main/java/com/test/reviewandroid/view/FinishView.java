@@ -12,8 +12,10 @@ import android.graphics.PathMeasure;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -22,9 +24,10 @@ import com.test.reviewandroid.R;
 /**
  * @createTime: 2019/1/8
  * @author: lady_zhou
- * @Description:
+ * @Description: 完成时的动画
  */
 public class FinishView extends View {
+    private static final String TAG = "FinishView";
     // View 宽高
     private int mViewWidth;
     private int mViewHeight;
@@ -32,14 +35,15 @@ public class FinishView extends View {
     private int mRadius;//半径
 
     private Point mCenterPoint;//中心点
+    private Point mLeftPoint, mMiddlePoint, mRightPoint, mStopPoint;
+
     private int mTickWidth, mBorderWidth;//设置对话和圆圈的宽度
 
     // 当前的状态(非常重要)
     private FinishView.status mCurrentState = FinishView.status.NONE;
 
     /*路径*/
-    private Path mTickRightPath;//对号路径
-    private Path mTickLeftPath;//对号路径
+    private Path mTicktPath;//对号路径
     private Path mCirclePath;//外圆路径
     private RectF mRectF;
     private Path mArcPath;
@@ -72,6 +76,7 @@ public class FinishView extends View {
     private Handler mAnimatorHandler;
 
     private final static int UNSET_FLAG = 1;
+    private float value;
 
 
     public FinishView(Context context) {
@@ -103,8 +108,8 @@ public class FinishView extends View {
 
     public static enum status {
         NONE,
-        START,
-        END
+        STARTLIFT,
+        STARTCIRCLE
     }
 
     /**
@@ -171,6 +176,29 @@ public class FinishView extends View {
         if (mBorderWidth == UNSET_FLAG) {
             mBorderWidth = mViewWidth / 12;
         }
+        if (mTickWidth == UNSET_FLAG) {
+            mTickWidth = mViewWidth / 10;
+        }
+
+        mLeftPoint.x = (int) (paddingLeft + (diameter * 0.2428));
+        mLeftPoint.y = (int) (paddingTop + diameter * 0.4712);
+
+        mMiddlePoint.x = (int) (paddingLeft + (diameter * 0.4571));
+        mMiddlePoint.y = (int) (paddingTop + diameter * 0.6642);
+
+        mStopPoint.x = (int) (paddingLeft + diameter * 0.4581);
+        mStopPoint.y = (int) (paddingTop + diameter * 0.6652);
+
+        mRightPoint.x = (int) (paddingLeft + (diameter * 0.7642));
+        mRightPoint.y = (int) (paddingTop + diameter * 0.3285);
+
+        mTicktPath.moveTo(mLeftPoint.x, mLeftPoint.y);
+        mTicktPath.lineTo(mMiddlePoint.x, mMiddlePoint.y);
+        mTicktPath.lineTo(mStopPoint.x, mStopPoint.y);
+        mTicktPath.lineTo(mRightPoint.x, mRightPoint.y);
+        mPathMeasure.setPath(mTicktPath, false);
+        mTicktPath.reset();
+
 
         mCirclePath.reset();
         mCirclePath.addCircle(mCenterPoint.x, mCenterPoint.y, mRadius, Path.Direction.CCW);
@@ -193,6 +221,7 @@ public class FinishView extends View {
 
         initAnimator();
 
+        mCurrentState = status.STARTCIRCLE;
         mCircleAnimator.start();
 
     }
@@ -234,6 +263,14 @@ public class FinishView extends View {
         mRectF = new RectF();
         mArcPath = new Path();
 
+        mLeftPoint = new Point();
+        mMiddlePoint = new Point();
+        mRightPoint = new Point();
+        mStopPoint = new Point();
+
+        mPathMeasure = new PathMeasure();
+        mTicktPath = new Path();
+
     }
 
     /**
@@ -247,9 +284,11 @@ public class FinishView extends View {
         mUpdateListener = new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                float value = (float) animation.getAnimatedValue();
-                mArcPath.reset();
-                mArcPath.addArc(mRectF, -159, 360 * value);
+                value = (float) animation.getAnimatedValue();
+                if (mCurrentState == status.STARTLIFT) {
+                    mTicktPath.reset();
+                    mPathMeasure.getSegment(0, value * mPathMeasure.getLength(), mTicktPath, true);
+                }
                 invalidate();
             }
         };
@@ -263,7 +302,7 @@ public class FinishView extends View {
             @Override
             public void onAnimationEnd(Animator animation) {
                 // getHandle发消息通知动画状态更新
-//                mAnimatorHandler.sendEmptyMessage(0);
+                mAnimatorHandler.sendEmptyMessage(0);
             }
 
             @Override
@@ -285,6 +324,22 @@ public class FinishView extends View {
      * @Description 初始化handle
      */
     private void initHandler() {
+        mAnimatorHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (mCurrentState) {
+                    case STARTCIRCLE:
+                        mCurrentState = status.STARTLIFT;
+                        mCircleAnimator.removeAllListeners();//删除动画对象所有的监听器（包括暂停监听器）
+                        mTickAnimator.start();
+                        break;
+                    case STARTLIFT:
+                        mTickAnimator.removeAllListeners();
+                        break;
+                }
+            }
+        };
     }
 
     /**
@@ -300,11 +355,41 @@ public class FinishView extends View {
         mCircleAnimator.setDuration(2000 / 3);
         mCircleAnimator.setStartDelay((long) (2000 * 0.23));
 
+
+        mTickAnimator = ValueAnimator.ofFloat(0f, 1f);
+        mTickAnimator.setStartDelay((long) (2000 * 0.21));
+        mTickAnimator.setDuration(2000 / 7);
+        mTickAnimator.setInterpolator(new LinearInterpolator());
+
+
         mCircleAnimator.addUpdateListener(mUpdateListener);
+        mTickAnimator.addUpdateListener(mUpdateListener);
+
+        mCircleAnimator.addListener(mAnimatorListener);
+        mTickAnimator.addListener(mAnimatorListener);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        drawTick(canvas);
+    }
+
+    private void drawTick(Canvas canvas) {
         canvas.drawPath(mArcPath, mCirclePaint);
+
+        switch (mCurrentState) {
+
+            case STARTLIFT:
+                canvas.drawPath(mTicktPath, mTickPaint);
+                break;
+
+            case STARTCIRCLE:
+                mArcPath.reset();
+                mArcPath.addArc(mRectF, -159, 360 * value);
+                canvas.drawPath(mArcPath, mCirclePaint);
+                break;
+        }
     }
 }
