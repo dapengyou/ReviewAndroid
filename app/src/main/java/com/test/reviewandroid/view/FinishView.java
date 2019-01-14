@@ -103,6 +103,7 @@ public class FinishView extends View {
         } finally {
             a.recycle();
         }
+        setBackgroundColor(mBackgroundColor);
         initAll();
     }
 
