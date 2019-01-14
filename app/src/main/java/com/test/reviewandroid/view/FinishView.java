@@ -4,15 +4,18 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
+import android.graphics.Point;
 import android.graphics.RectF;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 import com.test.reviewandroid.R;
 
@@ -22,21 +25,32 @@ import com.test.reviewandroid.R;
  * @Description:
  */
 public class FinishView extends View {
-    // 画笔
-    private Paint mPaint;
-
     // View 宽高
     private int mViewWidth;
     private int mViewHeight;
+
+    private int mRadius;//半径
+
+    private Point mCenterPoint;//中心点
+    private int mTickWidth, mBorderWidth;//设置对话和圆圈的宽度
 
     // 当前的状态(非常重要)
     private FinishView.status mCurrentState = FinishView.status.NONE;
 
     /*路径*/
-    private Path mTickPath;//对号路径
-    private Path mCirclePath;//外援路径
+    private Path mTickRightPath;//对号路径
+    private Path mTickLeftPath;//对号路径
+    private Path mCirclePath;//外圆路径
+    private RectF mRectF;
+    private Path mArcPath;
+
+
     // 测量Path 并截取部分的工具
     private PathMeasure mPathMeasure;
+
+    /*画笔*/
+    private Paint mCirclePaint;//外圆画笔
+    private Paint mTickPaint;//对号画笔
 
     /*动画*/
     private ValueAnimator mCircleAnimator;//圆圈动画
@@ -44,7 +58,7 @@ public class FinishView extends View {
 
     /*颜色*/
     private int mTickColor;
-    private int mBorderColor;
+    private int mCircleColor;
     private int mBackgroundColor;
 
     // 动画数值(用于控制动画状态,因为同一时间内只允许有一种状态出现,具体数值处理取决于当前状态)
@@ -56,6 +70,9 @@ public class FinishView extends View {
 
     // 用于控制动画状态转换
     private Handler mAnimatorHandler;
+
+    private final static int UNSET_FLAG = 1;
+
 
     public FinishView(Context context) {
         this(context, null);
@@ -72,9 +89,12 @@ public class FinishView extends View {
         try {
             mTickColor =
                     a.getColor(R.styleable.FinishView_tick_color, Color.WHITE);
-            mBorderColor =
-                    a.getColor(R.styleable.FinishView_border_color, Color.parseColor("#4AC65A"));
+            mCircleColor =
+                    a.getColor(R.styleable.FinishView_circle_view_color, Color.WHITE);
             mBackgroundColor = a.getColor(R.styleable.FinishView_background_color, Color.parseColor("#32bc43"));
+            mTickWidth = a.getDimensionPixelSize(R.styleable.FinishView_tick_width, UNSET_FLAG);
+            mBorderWidth =
+                    a.getDimensionPixelOffset(R.styleable.FinishView_border_width, UNSET_FLAG);
         } finally {
             a.recycle();
         }
@@ -127,8 +147,33 @@ public class FinishView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mViewWidth = w;
-        mViewHeight = h;
+
+        int width = getWidth();
+        int height = getHeight();
+
+        int paddingLeft = getPaddingLeft();
+        int paddingRight = getPaddingRight();
+        int paddingTop = getPaddingTop();
+        int paddingBottom = getPaddingBottom();
+
+        mViewWidth = width - paddingLeft - paddingRight;
+        mViewHeight = height - paddingTop - paddingBottom;
+
+        int diameter = Math.min(mViewWidth, mViewHeight);
+        mRadius = Math.min(mViewWidth, mViewHeight) / 2 - mBorderWidth;
+
+        mCenterPoint.x = paddingLeft + mRadius + mBorderWidth;
+        mCenterPoint.y = paddingTop + mRadius + mBorderWidth;
+
+        mRectF.set(paddingLeft + mBorderWidth, paddingTop + mBorderWidth, mViewWidth - mBorderWidth, mViewHeight - mBorderWidth);
+
+
+        if (mBorderWidth == UNSET_FLAG) {
+            mBorderWidth = mViewWidth / 12;
+        }
+
+        mCirclePath.reset();
+        mCirclePath.addCircle(mCenterPoint.x, mCenterPoint.y, mRadius, Path.Direction.CCW);
     }
 
     /**
@@ -148,6 +193,8 @@ public class FinishView extends View {
 
         initAnimator();
 
+        mCircleAnimator.start();
+
     }
 
     /**
@@ -157,12 +204,22 @@ public class FinishView extends View {
      * @Description 初始化画笔
      */
     private void initPaint() {
-        mPaint = new Paint();
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(15);
-        mPaint.setColor(Color.WHITE);
-        mPaint.setAntiAlias(true);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        //外圆画笔初始化
+        mCirclePaint = new Paint();
+        mCirclePaint.setStyle(Paint.Style.STROKE);
+        mCirclePaint.setStrokeWidth(mBorderWidth);
+        mCirclePaint.setColor(mCircleColor);
+        mCirclePaint.setAntiAlias(true);
+        mCirclePaint.setStrokeCap(Paint.Cap.ROUND);
+
+        //对号画笔初始化
+        mTickPaint = new Paint();
+        mTickPaint.setStyle(Paint.Style.STROKE);
+        mTickPaint.setStrokeWidth(mTickWidth);
+        mTickPaint.setColor(mTickColor);
+        mTickPaint.setAntiAlias(true);
+        mTickPaint.setStrokeCap(Paint.Cap.ROUND);
+
     }
 
     /**
@@ -172,13 +229,10 @@ public class FinishView extends View {
      * @Description 初始化路径
      */
     private void initPath() {
-        mTickPath = new Path();
+        mCenterPoint = new Point();
         mCirclePath = new Path();
-
-        mPathMeasure = new PathMeasure();
-
-        RectF oval = new RectF(-100, -100, 100, 100);      // 外部圆环
-        mCirclePath.addArc(oval, 45, -359.9f);
+        mRectF = new RectF();
+        mArcPath = new Path();
 
     }
 
@@ -189,6 +243,39 @@ public class FinishView extends View {
      * @Description 监听初始化
      */
     private void initListener() {
+
+        mUpdateListener = new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                mArcPath.reset();
+                mArcPath.addArc(mRectF, -159, 360 * value);
+                invalidate();
+            }
+        };
+
+        mAnimatorListener = new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                // getHandle发消息通知动画状态更新
+//                mAnimatorHandler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        };
     }
 
     /**
@@ -207,5 +294,17 @@ public class FinishView extends View {
      * @Description 初始化动画
      */
     private void initAnimator() {
+        // circle animation
+        mCircleAnimator = ValueAnimator.ofFloat(0f, 1f);
+        mCircleAnimator.setInterpolator(new LinearInterpolator());
+        mCircleAnimator.setDuration(2000 / 3);
+        mCircleAnimator.setStartDelay((long) (2000 * 0.23));
+
+        mCircleAnimator.addUpdateListener(mUpdateListener);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        canvas.drawPath(mArcPath, mCirclePaint);
     }
 }

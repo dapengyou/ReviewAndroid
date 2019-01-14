@@ -9,8 +9,10 @@
 
     <declare-styleable name="FinishView">
         <attr name="tick_color" format="color"/>
-        <attr name="border_color" format="color"/>
+        <attr name="circle_view_color" format="color"/>
         <attr name="background_color" format="color"/>
+        <attr name="tick_width" format="dimension"/>
+        <attr name="border_width" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="StopWatchView">

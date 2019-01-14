@@ -30,4 +30,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="搜索" />
+    <Button
+        android:id="@+id/bt_finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="完成动画" />
 </LinearLayout>

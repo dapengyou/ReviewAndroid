@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.test.reviewandroid.activity.LineActivity;
 import com.test.reviewandroid.view.ClockViewActivity;
+import com.test.reviewandroid.view.FinishActivity;
 import com.test.reviewandroid.view.ImageViewActivity;
 import com.test.reviewandroid.view.SearchActivity;
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.bt_activity, R.id.bt_view, R.id.bt_image, R.id.bt_search})
+    @OnClick({R.id.bt_activity, R.id.bt_view, R.id.bt_image, R.id.bt_search,R.id.bt_finish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_activity:
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.bt_search:
                 startActivity(new Intent(this, SearchActivity.class));
+                break;
+                case R.id.bt_finish:
+                startActivity(new Intent(this, FinishActivity.class));
                 break;
         }
     }

@@ -40,7 +40,8 @@
         <activity android:name=".activity.AlarmActivity" />
         <activity android:name=".view.ClockViewActivity" />
         <activity android:name=".view.ImageViewActivity" />
-        <activity android:name=".view.SearchActivity"></activity>
+        <activity android:name=".view.SearchActivity" />
+        <activity android:name=".view.FinishActivity"></activity>
     </application>
 
 </manifest>
