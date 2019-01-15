@@ -8,9 +8,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
+import com.test.reviewandroid.activity.AllAnimationActivity;
 import com.test.reviewandroid.activity.LineActivity;
+import com.test.reviewandroid.activity.fourComponents.ReviewServiceActivity;
 import com.test.reviewandroid.view.ClockViewActivity;
 import com.test.reviewandroid.view.FinishActivity;
 import com.test.reviewandroid.view.ImageViewActivity;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestPermission() {
-
+        //动态申请权限
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) { //表示未授权时
             //进行授权
@@ -39,23 +40,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.bt_activity, R.id.bt_view, R.id.bt_image, R.id.bt_search,R.id.bt_finish})
+    @OnClick({R.id.bt_activity, R.id.bt_components, R.id.bt_animation})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_activity:
                 startActivity(new Intent(this, LineActivity.class));
                 break;
-            case R.id.bt_view:
-                startActivity(new Intent(this, ClockViewActivity.class));
+            case R.id.bt_components:
+                startActivity(new Intent(this, ReviewServiceActivity.class));
                 break;
-            case R.id.bt_image:
-                startActivity(new Intent(this, ImageViewActivity.class));
-                break;
-            case R.id.bt_search:
-                startActivity(new Intent(this, SearchActivity.class));
-                break;
-                case R.id.bt_finish:
-                startActivity(new Intent(this, FinishActivity.class));
+            case R.id.bt_animation:
+                startActivity(new Intent(this, AllAnimationActivity.class));
                 break;
         }
     }

@@ -1,7 +1,6 @@
 package com.test.reviewandroid.activity;
 
 import android.content.res.Configuration;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +13,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * @createTime: 2019/1/15
+ * @author  lady_zhou
+ * @Description  Activity 生命周期
+ */
 public class ReviewActivity extends AppCompatActivity {
     private final String TAG = ReviewActivity.class.getSimpleName();
     private static final String TURN = "turn";

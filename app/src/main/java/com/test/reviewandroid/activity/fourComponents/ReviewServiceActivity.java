@@ -1,4 +1,4 @@
-package com.test.reviewandroid.activity;
+package com.test.reviewandroid.activity.fourComponents;
 
 import android.Manifest;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import butterknife.OnClick;
 /**
  * @author lady_zhou
  * @createTime: 2019/1/10
- * @Description activity与service通信
+ * @Description 四大组件综合的小Demo
  */
 public class ReviewServiceActivity extends AppCompatActivity {
 

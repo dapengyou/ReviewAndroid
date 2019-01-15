@@ -4,26 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
+    android:orientation="vertical">
 
     <Button
-        android:id="@+id/bt_activity"
+        android:id="@+id/bt_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Activity" />
+        android:text="秒表" />
 
     <Button
-        android:id="@+id/bt_components"
+        android:id="@+id/bt_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="四大组件综合的小Demo" />
+        android:text="图片缩放" />
 
     <Button
-        android:id="@+id/bt_animation"
+        android:id="@+id/bt_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="动画" />
+        android:text="搜索" />
 
+    <Button
+        android:id="@+id/bt_finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="完成动画" />
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.test.reviewandroid.activity;
+package com.test.reviewandroid.activity.fourComponents;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

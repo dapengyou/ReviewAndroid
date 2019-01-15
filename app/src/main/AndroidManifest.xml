@@ -24,12 +24,12 @@
             android:name=".activity.ReviewActivity"
             android:configChanges="orientation|screenSize" />
         <activity android:name=".activity.LineActivity" />
-        <activity android:name=".activity.ReviewServiceActivity" />
+        <activity android:name=".activity.fourComponents.ReviewServiceActivity" />
 
-        <service android:name=".activity.MyService" />
+        <service android:name=".activity.fourComponents.MyService" />
 
         <receiver
-            android:name=".activity.MyReceiver"
+            android:name=".activity.fourComponents.MyReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -37,7 +37,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.AlarmActivity" />
+        <activity android:name=".activity.fourComponents.AlarmActivity" />
         <activity android:name=".view.ClockViewActivity" />
         <activity android:name=".view.ImageViewActivity" />
         <activity android:name=".view.SearchActivity" />
@@ -45,6 +45,7 @@
         <activity android:name=".activity.activityToActivity.OneActivity" />
         <activity android:name=".activity.activityToActivity.SecondActivity" />
         <activity android:name=".activity.activityToFragment.ActivityToFragmentActivity" />
+        <activity android:name=".activity.AllAnimationActivity"></activity>
     </application>
 
 </manifest>

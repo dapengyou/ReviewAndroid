@@ -1,8 +1,7 @@
-package com.test.reviewandroid.activity;
+package com.test.reviewandroid.activity.fourComponents;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;

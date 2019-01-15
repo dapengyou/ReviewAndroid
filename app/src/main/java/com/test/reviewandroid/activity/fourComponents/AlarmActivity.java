@@ -1,4 +1,4 @@
-package com.test.reviewandroid.activity;
+package com.test.reviewandroid.activity.fourComponents;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
