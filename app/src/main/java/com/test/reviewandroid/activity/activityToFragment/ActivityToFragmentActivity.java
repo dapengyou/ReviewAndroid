@@ -1,18 +1,26 @@
 package com.test.reviewandroid.activity.activityToFragment;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.widget.TextView;
 
 import com.test.reviewandroid.R;
 
-public class ActivityToFragmentActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class ActivityToFragmentActivity extends AppCompatActivity implements MyFragment.FragmentCallBack {
+
+    @BindView(R.id.tv_back)
+    TextView mTvBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_fragment);
+        ButterKnife.bind(this);
 
         //第一步获取FragmentManager
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -36,5 +44,13 @@ public class ActivityToFragmentActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragment, mFragment);
         fragmentTransaction.commit();
 
+    }
+
+    //实现回调接口
+    @Override
+    public void sendContent(String info) {
+        if (info != null) {
+            mTvBack.setText("这是Activity\n返回的值是：" + info);
+        }
     }
 }

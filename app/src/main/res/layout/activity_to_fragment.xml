@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="下面是fragment" />
+        android:background="@color/bg_gray"
+        android:text="这是Activity,下面是fragment" />
 
     <View
         android:layout_width="match_parent"
@@ -20,8 +21,25 @@
     <FrameLayout
         android:id="@+id/fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp"></FrameLayout>
+        android:layout_height="0dp"
+        android:background="#C4D6E7"
+        android:layout_weight="1">
 
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_black" />
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:padding="10dp"
+        android:background="@color/bg_gray"
+        android:text="这是Activity,上面是fragment" />
 
 </LinearLayout>
