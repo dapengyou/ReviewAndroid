@@ -17,22 +17,32 @@
         android:text="activity生命周期" />
 
     <TextView
-        android:id="@+id/tv_activity_fragment"
+        android:id="@+id/tv_activity_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@color/bg_gray"
         android:gravity="center"
         android:padding="10dp"
+        android:text="activity与activity通信" />
+
+    <TextView
+        android:id="@+id/tv_activity_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:background="@color/bg_gray"
+        android:gravity="center"
+        android:padding="10dp"
         android:text="activity与Fragment通信" />
 
     <TextView
         android:id="@+id/tv_activity_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@color/bg_gray"
         android:gravity="center"
         android:padding="10dp"
-        android:layout_marginTop="10dp"
         android:text="activity与service通信" />
 </LinearLayout>

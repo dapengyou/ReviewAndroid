@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.test.reviewandroid.R;
+import com.test.reviewandroid.activity.activityToActivity.OneActivity;
+import com.test.reviewandroid.activity.activityToFragment.ActivityToFragmentActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,13 +26,17 @@ public class LineActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tv_activity_livelift, R.id.tv_activity_fragment, R.id.tv_activity_service})
+    @OnClick({R.id.tv_activity_livelift, R.id.tv_activity_fragment, R.id.tv_activity_service, R.id.tv_activity_activity})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_activity_livelift:
                 startActivity(new Intent(this, ReviewActivity.class));
                 break;
+            case R.id.tv_activity_activity:
+                startActivity(new Intent(this, OneActivity.class));
+                break;
             case R.id.tv_activity_fragment:
+                startActivity(new Intent(this, ActivityToFragmentActivity.class));
                 break;
             case R.id.tv_activity_service:
                 startActivity(new Intent(this, ReviewServiceActivity.class));

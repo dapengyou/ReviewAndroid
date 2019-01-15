@@ -41,7 +41,10 @@
         <activity android:name=".view.ClockViewActivity" />
         <activity android:name=".view.ImageViewActivity" />
         <activity android:name=".view.SearchActivity" />
-        <activity android:name=".view.FinishActivity"></activity>
+        <activity android:name=".view.FinishActivity" />
+        <activity android:name=".activity.activityToActivity.OneActivity" />
+        <activity android:name=".activity.activityToActivity.SecondActivity" />
+        <activity android:name=".activity.activityToFragment.ActivityToFragmentActivity" />
     </application>
 
 </manifest>
