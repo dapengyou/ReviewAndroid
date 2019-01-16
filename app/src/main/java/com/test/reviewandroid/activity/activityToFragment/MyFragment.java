@@ -69,4 +69,16 @@ public class MyFragment extends Fragment {
     public  interface FragmentCallBack{
          void sendContent(String info);
     }
+
+    /**
+     * @date 创建时间: 2019/1/16
+     * @author  lady_zhou
+     * @Description 将传递进来的Activity对象释放掉
+     * @return : void
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mFragmentCallBack = null;
+    }
 }

@@ -41,6 +41,7 @@ public class ReviewServiceActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_close:
+                stopService(intent);
                 break;
             case R.id.bt_sure:
 

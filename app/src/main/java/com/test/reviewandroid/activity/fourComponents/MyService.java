@@ -21,7 +21,7 @@ public class MyService extends Service {
     public static final String DATA = "data";
     private int data;
     private Calendar mCalendar;
-    private Timer mTimer;
+    private Timer  mTimer;
     private int minute;
     private MyReceiver mMyReceiver;
 
@@ -89,12 +89,14 @@ public class MyService extends Service {
 
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        //广播动态销毁
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //广播动态销毁
 //        unregisterReceiver(mMyReceiver);
 //        mMyReceiver = null;
-//        Log.d(TAG, "onDestroy: 服务销毁，广播销毁");
-//    }
+        Log.d(TAG, "onDestroy: 服务销毁");
+        mTimer.cancel();
+        mTimer = null;
+    }
 }
