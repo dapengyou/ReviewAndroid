@@ -26,8 +26,10 @@
         <activity android:name=".activity.LineActivity" />
         <activity android:name=".activity.fourComponents.ReviewServiceActivity" />
 
+        //服务注册
         <service android:name=".activity.fourComponents.MyService" />
 
+        //广播注册
         <receiver
             android:name=".activity.fourComponents.MyReceiver"
             android:enabled="true"
@@ -45,7 +47,11 @@
         <activity android:name=".activity.activityToActivity.OneActivity" />
         <activity android:name=".activity.activityToActivity.SecondActivity" />
         <activity android:name=".activity.activityToFragment.ActivityToFragmentActivity" />
-        <activity android:name=".activity.AllAnimationActivity"></activity>
+        <activity android:name=".activity.AllAnimationActivity" />
+        <activity android:name=".activity.activityToService.ActivityToServiceActivity"></activity>
+
+        //服务注册
+        <service android:name=".activity.activityToService.DownLoadService" />
     </application>
 
 </manifest>
