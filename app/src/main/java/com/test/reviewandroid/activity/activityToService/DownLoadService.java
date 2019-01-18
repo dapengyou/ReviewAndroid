@@ -57,6 +57,8 @@ public class DownLoadService extends Service {
         return progress;
     }
 
+    private Thread mThread;
+
     /**
      * @return : void
      * @date 创建时间: 2019/1/16
@@ -64,13 +66,16 @@ public class DownLoadService extends Service {
      * @Description 模拟下载任务，每秒钟更新一次
      */
     public void startDownLoad() {
-        new Thread(new Runnable() {
+        mThread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 while (progress < MAX_PROGRESS) {
                     progress += 5;
-
+                    if (Thread.currentThread().isInterrupted()) {
+                        Log.d(TAG, "方法：run: \t\t中断线程");
+                        break;
+                    }
                     //进度发生变化通知调用方
                     if (onProgressListener != null) {
                         onProgressListener.onProgress(progress);
@@ -79,13 +84,14 @@ public class DownLoadService extends Service {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
 
                     Log.d(TAG, "方法：run: 线程\t\t" + progress);
                 }
             }
-        }).start();
+        });
+        mThread.start();
     }
 
     /**
@@ -111,6 +117,8 @@ public class DownLoadService extends Service {
     @Override
     public boolean onUnbind(Intent intent) {
         Log.d(TAG, "方法：onUnbind: \t\t解绑了");
+        mThread.interrupt();//中断线程
+
         return super.onUnbind(intent);
     }
 }

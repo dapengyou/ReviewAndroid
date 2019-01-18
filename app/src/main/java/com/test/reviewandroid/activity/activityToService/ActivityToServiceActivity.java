@@ -31,7 +31,7 @@ public class ActivityToServiceActivity extends AppCompatActivity {
 
     //绑定服务第一步：  先创建服务中的binder对象
     private DownLoadService.MyBinder mMyBinder = null;
-    private DownLoadService mDownLoadService;
+    private DownLoadService mDownLoadService = null;
     private Intent mIntent;
 
     @Override
@@ -78,4 +78,11 @@ public class ActivityToServiceActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mDownLoadService != null) {
+            unbindService(mServiceConnection);
+        }
+    }
 }
