@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.test.reviewandroid.R;
-import com.test.reviewandroid.okhttp.httpurlconnention.Httpurlconnention;
 
 import java.io.IOException;
 
