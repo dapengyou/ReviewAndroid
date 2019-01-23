@@ -31,4 +31,5 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies.butterKnifeCompiler
     implementation rootProject.ext.dependencies.recyclerviewv7
     implementation rootProject.ext.dependencies.baseRecyclerViewAdapterHelper
+    implementation rootProject.ext.dependencies.okhttp
 }

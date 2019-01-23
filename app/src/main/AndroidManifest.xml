@@ -3,6 +3,7 @@
     package="com.test.reviewandroid">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -25,10 +26,8 @@
             android:configChanges="orientation|screenSize" />
         <activity android:name=".activity.LineActivity" />
         <activity android:name=".activity.fourComponents.ReviewServiceActivity" />
-
         //服务注册
         <service android:name=".activity.fourComponents.MyService" />
-
         //广播注册
         <receiver
             android:name=".activity.fourComponents.MyReceiver"
@@ -48,10 +47,11 @@
         <activity android:name=".activity.activityToActivity.SecondActivity" />
         <activity android:name=".activity.activityToFragment.ActivityToFragmentActivity" />
         <activity android:name=".activity.AllAnimationActivity" />
-        <activity android:name=".activity.activityToService.ActivityToServiceActivity"></activity>
-
+        <activity android:name=".activity.activityToService.ActivityToServiceActivity" />
         //服务注册
         <service android:name=".activity.activityToService.DownLoadService" />
+
+        <activity android:name=".okhttp.OkHttpActivity"></activity>
     </application>
 
 </manifest>

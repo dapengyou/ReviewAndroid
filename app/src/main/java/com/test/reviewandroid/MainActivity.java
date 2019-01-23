@@ -12,6 +12,7 @@ import android.view.View;
 import com.test.reviewandroid.activity.AllAnimationActivity;
 import com.test.reviewandroid.activity.LineActivity;
 import com.test.reviewandroid.activity.fourComponents.ReviewServiceActivity;
+import com.test.reviewandroid.okhttp.OkHttpActivity;
 import com.test.reviewandroid.view.ClockViewActivity;
 import com.test.reviewandroid.view.FinishActivity;
 import com.test.reviewandroid.view.ImageViewActivity;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.bt_activity, R.id.bt_components, R.id.bt_animation})
+    @OnClick({R.id.bt_activity, R.id.bt_components, R.id.bt_animation, R.id.bt_okhttp})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_activity:
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.bt_animation:
                 startActivity(new Intent(this, AllAnimationActivity.class));
+                break;
+            case R.id.bt_okhttp:
+                startActivity(new Intent(this, OkHttpActivity.class));
                 break;
         }
     }
