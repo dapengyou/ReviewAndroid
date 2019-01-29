@@ -3,8 +3,8 @@
     package="com.test.reviewandroid">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -51,7 +51,8 @@
         //服务注册
         <service android:name=".activity.activityToService.DownLoadService" />
 
-        <activity android:name=".okhttp.OkHttpActivity"></activity>
+        <activity android:name=".okhttp.OkHttpActivity" />
+        <activity android:name=".okhttp.HttpResumeActivity"></activity>
     </application>
 
 </manifest>

@@ -12,6 +12,7 @@ import android.view.View;
 import com.test.reviewandroid.activity.AllAnimationActivity;
 import com.test.reviewandroid.activity.LineActivity;
 import com.test.reviewandroid.activity.fourComponents.ReviewServiceActivity;
+import com.test.reviewandroid.okhttp.HttpResumeActivity;
 import com.test.reviewandroid.okhttp.OkHttpActivity;
 import com.test.reviewandroid.view.ClockViewActivity;
 import com.test.reviewandroid.view.FinishActivity;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, AllAnimationActivity.class));
                 break;
             case R.id.bt_okhttp:
-                startActivity(new Intent(this, OkHttpActivity.class));
+                startActivity(new Intent(this, HttpResumeActivity.class));
                 break;
         }
     }
