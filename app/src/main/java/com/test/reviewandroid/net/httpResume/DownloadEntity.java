@@ -1,4 +1,4 @@
-package com.test.reviewandroid.okhttp.httpResume;
+package com.test.reviewandroid.net.httpResume;
 
 import android.content.Context;
 

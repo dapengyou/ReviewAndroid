@@ -12,12 +12,9 @@ import android.view.View;
 import com.test.reviewandroid.activity.AllAnimationActivity;
 import com.test.reviewandroid.activity.LineActivity;
 import com.test.reviewandroid.activity.fourComponents.ReviewServiceActivity;
-import com.test.reviewandroid.okhttp.HttpResumeActivity;
-import com.test.reviewandroid.okhttp.OkHttpActivity;
-import com.test.reviewandroid.view.ClockViewActivity;
-import com.test.reviewandroid.view.FinishActivity;
-import com.test.reviewandroid.view.ImageViewActivity;
-import com.test.reviewandroid.view.SearchActivity;
+import com.test.reviewandroid.net.DownLoadApkActivity;
+import com.test.reviewandroid.net.HttpResumeActivity;
+import com.test.reviewandroid.net.OkHttpActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -55,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, AllAnimationActivity.class));
                 break;
             case R.id.bt_okhttp:
-                startActivity(new Intent(this, HttpResumeActivity.class));
+//                startActivity(new Intent(this, HttpResumeActivity.class));
+//                startActivity(new Intent(this, OkHttpActivity.class));
+                startActivity(new Intent(this, DownLoadApkActivity.class));
                 break;
         }
     }

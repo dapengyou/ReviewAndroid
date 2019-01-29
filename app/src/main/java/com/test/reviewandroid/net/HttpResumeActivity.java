@@ -1,4 +1,4 @@
-package com.test.reviewandroid.okhttp;
+package com.test.reviewandroid.net;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,9 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.test.reviewandroid.R;
-import com.test.reviewandroid.okhttp.httpResume.DownLoadUtil;
-import com.test.reviewandroid.okhttp.httpResume.DownloadListener;
-import com.test.reviewandroid.okhttp.httpResume.Util;
+import com.test.reviewandroid.net.httpResume.DownLoadUtil;
+import com.test.reviewandroid.net.httpResume.DownloadListener;
+import com.test.reviewandroid.net.httpResume.Util;
 
 import java.net.HttpURLConnection;
 
@@ -23,6 +23,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * @createTime: 2019/1/29
+ * @author  lady_zhou
+ * @Description  短线续传下载Activity
+ */
 public class HttpResumeActivity extends AppCompatActivity {
     private static final String TAG = "HttpResumeActivity";
 

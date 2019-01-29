@@ -1,4 +1,4 @@
-package com.test.reviewandroid.okhttp;
+package com.test.reviewandroid.net;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +19,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * @createTime: 2019/1/29
+ * @author  lady_zhou
+ * @Description  okhttp使用demo
+ */
 public class OkHttpActivity extends AppCompatActivity {
     private static final String TAG = "OkHttpActivity";
     public String url = "http://www.baidu.com";
