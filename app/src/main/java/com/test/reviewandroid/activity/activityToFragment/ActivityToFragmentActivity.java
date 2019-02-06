@@ -67,7 +67,7 @@ public class ActivityToFragmentActivity extends AppCompatActivity implements MyF
     @Override
     public void sendContent(String info) {
         if (info != null) {
-            mTvBack.setText("这是Activity\n返回的值是：" + info);
+            mTvBack.setText("这是Activity\n从Fragment返回的值是：" + info);
         }
     }
 

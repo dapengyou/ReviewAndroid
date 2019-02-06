@@ -39,7 +39,11 @@ public class MyFragment extends Fragment {
     public void onAttach(Context context) {
         Log.d(TAG, "Fragment: 调用onAttach");
         super.onAttach(context);
-        mFragmentCallBack = (FragmentCallBack) getActivity();//回传Activity第三步  获取相应的Activity
+        if (context instanceof FragmentCallBack) {
+            mFragmentCallBack = (FragmentCallBack) context;//回传Activity第三步  获取相应的Activity
+        } else {
+            throw new IllegalArgumentException("接口必须是FragmentCallBack");
+        }
     }
 
     @Override
@@ -59,9 +63,10 @@ public class MyFragment extends Fragment {
         //收到Activity传来的值第一步 获取从Activity中传过来的全部值
         savedInstanceState = this.getArguments();
         //收到Activity传来的值第二步  获取某一个值
-        String message = savedInstanceState.getString("message");
-        mTvText.setText("我是fragment\n 传过来的值：" + message);
-
+        if (savedInstanceState != null) {
+            String message = savedInstanceState.getString("message");
+            mTvText.setText("我是fragment\n Activity传过来的值：" + message);
+        }
 
         return view;
     }
@@ -145,7 +150,7 @@ public class MyFragment extends Fragment {
 
     /**
      * @createTime: 2019/2/6
-     * @author  lady_zhou
+     * @author lady_zhou
      * @Description 显示dialog
      */
     private void showDialog() {
