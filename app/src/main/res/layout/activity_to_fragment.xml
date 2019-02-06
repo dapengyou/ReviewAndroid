@@ -8,9 +8,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bg_gray"
         android:gravity="center"
         android:padding="10dp"
-        android:background="@color/bg_gray"
         android:text="这是Activity,下面是fragment" />
 
     <View
@@ -22,8 +22,8 @@
         android:id="@+id/fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#C4D6E7"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="#C4D6E7">
 
     </FrameLayout>
 
@@ -37,9 +37,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="@color/bg_gray"
         android:gravity="center"
         android:padding="10dp"
-        android:background="@color/bg_gray"
         android:text="这是Activity,上面是fragment" />
+
+    <Button
+        android:id="@+id/bt_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="显示dialog" />
 
 </LinearLayout>
