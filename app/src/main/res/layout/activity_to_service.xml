@@ -13,11 +13,21 @@
         android:text="下载" />
 
     <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
         android:id="@+id/progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:max="100"
-        android:layout_gravity="center" />
+        android:max="100" />
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/bg_black"
+        android:padding="10dp"
+        android:textSize="16dp"
+        android:text="0%" />
 </LinearLayout>

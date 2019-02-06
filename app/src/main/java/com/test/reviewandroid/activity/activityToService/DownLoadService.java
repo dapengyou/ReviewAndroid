@@ -10,7 +10,7 @@ import android.util.Log;
 /**
  * @createTime: 2019/1/16
  * @author: lady_zhou
- * @Description:
+ * @Description: 下载服务
  */
 public class DownLoadService extends Service {
     private final String TAG = getClass().getSimpleName();
@@ -21,6 +21,8 @@ public class DownLoadService extends Service {
     private int progress = 0;
 
     private OnProgressListener onProgressListener;
+    private Thread mThread;
+
 
     /**
      * @param intent :  返回一个Binder对象
@@ -48,18 +50,6 @@ public class DownLoadService extends Service {
     }
 
     /**
-     * @return : int 下载进度
-     * @date 创建时间: 2019/1/16
-     * @author lady_zhou
-     * @Description 增加get()方法，供Activity调用
-     */
-    public int getProgress() {
-        return progress;
-    }
-
-    private Thread mThread;
-
-    /**
      * @return : void
      * @date 创建时间: 2019/1/16
      * @author lady_zhou
@@ -71,7 +61,8 @@ public class DownLoadService extends Service {
             @Override
             public void run() {
                 while (progress < MAX_PROGRESS) {
-                    progress += 5;
+                    progress += 10;
+                    //中断线程
                     if (Thread.currentThread().isInterrupted()) {
                         Log.d(TAG, "方法：run: \t\t中断线程");
                         break;
