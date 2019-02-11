@@ -30,14 +30,14 @@
         //服务注册
         <service android:name=".activity.fourComponents.MyService" />
         //广播注册
-        <receiver
-            android:name=".activity.fourComponents.MyReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="myReceiver" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver-->
+            <!--android:name=".activity.fourComponents.MyReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="myReceiver" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <activity android:name=".activity.fourComponents.AlarmActivity" />
         <activity android:name=".view.ClockViewActivity" />
