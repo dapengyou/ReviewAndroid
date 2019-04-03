@@ -15,6 +15,7 @@ import com.test.reviewandroid.activity.fourComponents.ReviewServiceActivity;
 import com.test.reviewandroid.net.DownLoadApkActivity;
 import com.test.reviewandroid.net.HttpResumeActivity;
 import com.test.reviewandroid.net.OkHttpActivity;
+import com.test.reviewandroid.viewEvent.ViewEventActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.bt_activity, R.id.bt_components, R.id.bt_animation, R.id.bt_okhttp})
+    @OnClick({R.id.bt_activity, R.id.bt_components, R.id.bt_animation, R.id.bt_okhttp,R.id.bt_view_event})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_activity:
@@ -56,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(new Intent(this, OkHttpActivity.class));
                 startActivity(new Intent(this, DownLoadApkActivity.class));
                 break;
+                case R.id.bt_view_event:
+                startActivity(new Intent(this, ViewEventActivity.class));
+                break;
+
         }
     }
 }

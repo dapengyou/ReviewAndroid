@@ -4,36 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
+    android:orientation="vertical">
 
     <Button
-        android:id="@+id/bt_activity"
+        android:id="@+id/bt_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Activity" />
-
+        android:text="开始服务" />
     <Button
-        android:id="@+id/bt_components"
+        android:id="@+id/bt_stop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="四大组件综合的小Demo" />
-
+        android:text="停止服务" />
     <Button
-        android:id="@+id/bt_animation"
+        android:id="@+id/bt_bind"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="动画" />
+        android:text="绑定服务" />
     <Button
-        android:id="@+id/bt_okhttp"
+        android:id="@+id/bt_unbind"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="okhttp网络" />
-    <Button
-        android:id="@+id/bt_view_event"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="事件分发" />
-
+        android:text="解绑服务" />
 </LinearLayout>

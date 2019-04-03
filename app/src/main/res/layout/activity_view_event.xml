@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.test.reviewandroid.viewEvent.ViewGroupA
+        android:id="@+id/view_group_a"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_gray"
+        android:orientation="vertical">
+
+        <com.test.reviewandroid.viewEvent.ViewA
+            android:id="@+id/view_a"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:background="@color/bg_black" />
+
+        <com.test.reviewandroid.viewEvent.ViewGroupB
+            android:id="@+id/view_group_b"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="30dp"
+            android:background="#009988"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.test.reviewandroid.viewEvent.ViewB
+                android:id="@+id/view_b"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/bg_black" />
+        </com.test.reviewandroid.viewEvent.ViewGroupB>
+    </com.test.reviewandroid.viewEvent.ViewGroupA>
+
+</LinearLayout>

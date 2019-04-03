@@ -9,6 +9,8 @@ import com.test.reviewandroid.R;
 import com.test.reviewandroid.activity.activityToActivity.OneActivity;
 import com.test.reviewandroid.activity.activityToFragment.ActivityToFragmentActivity;
 import com.test.reviewandroid.activity.activityToService.ActivityToServiceActivity;
+import com.test.reviewandroid.activity.activityToService.ServiceDemo;
+import com.test.reviewandroid.activity.activityToService.ServiceDemoActivity;
 import com.test.reviewandroid.activity.fourComponents.ReviewServiceActivity;
 
 import butterknife.ButterKnife;
@@ -41,7 +43,8 @@ public class LineActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ActivityToFragmentActivity.class));
                 break;
             case R.id.tv_activity_service:
-                startActivity(new Intent(this, ActivityToServiceActivity.class));
+//                startActivity(new Intent(this, ActivityToServiceActivity.class));
+                startActivity(new Intent(this, ServiceDemoActivity.class));
                 break;
         }
     }
