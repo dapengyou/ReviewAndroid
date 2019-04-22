@@ -46,7 +46,7 @@ public class ServiceDemo extends Service {
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 5; i++) {
                     Log.d(TAG, "方法：start: " + i);
                 }
             }
@@ -59,7 +59,7 @@ public class ServiceDemo extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         bind();
-        Log.d(TAG, "方法：onBind: 服务已绑定");
+        Log.d(TAG, "方法：onBind: 绑定服务");
         return new MyBinder();
     }
 
@@ -67,7 +67,7 @@ public class ServiceDemo extends Service {
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < 5; i++) {
 //                        mListener.updateNumber(i);
                         Log.d(TAG, "方法：bind: " + i);
 
@@ -88,9 +88,11 @@ public class ServiceDemo extends Service {
     }
 
     @Override
-    public void unbindService(ServiceConnection conn) {
-        super.unbindService(conn);
+    public boolean onUnbind(Intent intent) {
+        Log.d(TAG, "方法：onUnbind: 解绑服务");
+        return super.onUnbind(intent);
     }
+
     @Override
     public void onDestroy() {
         Log.d(TAG, "方法：onDestroy: 服务销毁");

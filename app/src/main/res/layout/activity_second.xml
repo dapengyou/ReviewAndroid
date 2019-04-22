@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".activity.activityToActivity.SecondActivity">
 
@@ -12,12 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textColor="#DA0A25" />
 
     <TextView
         android:id="@+id/tv_age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textColor="#DA0A25" />
 </LinearLayout>
