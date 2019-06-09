@@ -67,7 +67,7 @@
         <activity android:name=".viewEvent.ViewEventActivity" />
         <activity android:name=".activity.activityResult.ActivityResultActivity" />
         <activity android:name=".activity.activityResult.ResultActivity"></activity>
-
+        <activity android:name=".scrollEvent.DemoActivity_1" />
     </application>
 
 </manifest>
