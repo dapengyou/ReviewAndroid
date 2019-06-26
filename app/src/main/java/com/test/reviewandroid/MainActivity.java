@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.test.reviewandroid.activity.AllAnimationActivity;
@@ -21,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-    private final String TAG = "MainActivity";
+    private final String TAG = "activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         requestPermission();
+        Log.d(TAG, getClass().getSimpleName() + "方法：onCreate: taskId:" + getTaskId() + "\thashcode:" + hashCode());
     }
 
     private void requestPermission() {
@@ -40,14 +42,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.bt_activity, R.id.bt_components, R.id.bt_animation, R.id.bt_okhttp,R.id.bt_view_event})
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d(TAG, getClass().getSimpleName() + "方法：onNewIntent:" + "taskId:" + getTaskId()+ "\thashcode:" + hashCode());
+    }
+
+    @OnClick({R.id.bt_activity, R.id.bt_components, R.id.bt_animation, R.id.bt_okhttp, R.id.bt_view_event})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_activity:
                 startActivity(new Intent(this, LineActivity.class));
                 break;
             case R.id.bt_components:
-                startActivity(new Intent(this, ReviewServiceActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.bt_animation:
                 startActivity(new Intent(this, AllAnimationActivity.class));
@@ -57,10 +65,58 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(new Intent(this, OkHttpActivity.class));
                 startActivity(new Intent(this, DownLoadApkActivity.class));
                 break;
-                case R.id.bt_view_event:
+            case R.id.bt_view_event:
                 startActivity(new Intent(this, ViewEventActivity.class));
                 break;
 
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "方法：onStart: One");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "方法：onResume: One");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "方法：onPause: One");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "方法：onStop: One");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "方法：onDestroy: One");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "方法：onRestart: One");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(TAG, "方法：onSaveInstanceState: one");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.d(TAG, "方法：onRestoreInstanceState: one");
     }
 }
