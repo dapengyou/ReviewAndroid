@@ -25,15 +25,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="动画" />
+
     <Button
         android:id="@+id/bt_okhttp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="okhttp网络" />
+
     <Button
         android:id="@+id/bt_view_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="事件分发" />
+
+    <Button
+        android:id="@+id/bt_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="recycleview" />
 
 </LinearLayout>

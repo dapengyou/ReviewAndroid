@@ -32,4 +32,10 @@ dependencies {
     implementation rootProject.ext.dependencies.recyclerviewv7
     implementation rootProject.ext.dependencies.baseRecyclerViewAdapterHelper
     implementation rootProject.ext.dependencies.okhttp
+    implementation rootProject.ext.dependencies.banner
+    implementation rootProject.ext.dependencies.cardview
+    implementation rootProject.ext.dependencies.PageMenuLayout
+    implementation rootProject.ext.dependencies.gson
+    implementation rootProject.ext.dependencies.glide
+    implementation rootProject.ext.dependencies.smartRefreshLayout
 }

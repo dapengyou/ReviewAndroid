@@ -4,9 +4,19 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="bg_gray">#D6D7D7</color>
     <color name="bg_white">#FFFFFF</color>
     <color name="bg_black">#000000</color>
 
     <color name="txt_white">#FFFFFF</color>
+    <color name="text_orange">#E8561E</color>
+    <color name="text_gray">#8a8a8a</color>
+    <color name="text_black">#333333</color>
+    <color name="text_write">#F1F3F6</color>
+    <color name="text_yellow">#FCDDA7</color>
+
+    <color name="bg_gray">#F1F3F6</color>
+    <color name="line_gray">#e3e3e3</color>
+    <color name="bg_yellow">#FCDDA7</color>
+
+    <color name="write">#FFFFFF</color>
 </resources>

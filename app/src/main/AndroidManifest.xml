@@ -27,9 +27,10 @@
             android:configChanges="orientation|screenSize" />
         <activity android:name=".activity.LineActivity" />
         <activity android:name=".activity.fourComponents.ReviewServiceActivity" />
-        //服务注册
+
+        <activity android:name=".recycleView.userComplexLayout.ComplexLayoutActivity"></activity>
         <service android:name=".activity.fourComponents.MyService" />
-        //广播注册
+
         <receiver
             android:name=".activity.fourComponents.MyReceiver"
             android:enabled="true"
@@ -47,26 +48,24 @@
         <activity android:name=".activity.activityToActivity.OneActivity" />
         <activity
             android:name=".activity.activityToActivity.SecondActivity"
-            android:theme="@android:style/Theme.Translucent">
-
-        </activity>
+            android:theme="@android:style/Theme.Translucent"></activity>
         <activity android:name=".activity.activityToFragment.ActivityToFragmentActivity" />
         <activity android:name=".activity.AllAnimationActivity" />
         <activity android:name=".activity.activityToService.ActivityToServiceActivity" />
-        //服务注册
+
         <service android:name=".activity.activityToService.DownLoadService" />
 
         <activity android:name=".net.OkHttpActivity" />
         <activity android:name=".net.HttpResumeActivity" />
         <activity android:name=".net.DownLoadApkActivity" />
         <activity android:name=".activity.activityToService.ServiceDemoActivity" />
-        //服务Demo
+
         <service android:name=".activity.activityToService.ServiceDemo" />
 
         <activity android:name=".view.ConstraintLayoutActivity" />
         <activity android:name=".viewEvent.ViewEventActivity" />
         <activity android:name=".activity.activityResult.ActivityResultActivity" />
-        <activity android:name=".activity.activityResult.ResultActivity"></activity>
+        <activity android:name=".activity.activityResult.ResultActivity" />
         <activity android:name=".scrollEvent.DemoActivity_1" />
     </application>
 

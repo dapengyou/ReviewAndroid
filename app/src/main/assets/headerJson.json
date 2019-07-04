@@ -1,0 +1,68 @@
+{
+    "linkBanner": [
+      {
+        "image": "http://img.zcool.cn/community/01b72057a7e0790000018c1bf4fce0.png"
+      },
+      {
+        "image": "http://img.zcool.cn/community/01fca557a7f5f90000012e7e9feea8.jpg"
+      },
+      {
+        "image": "http://img.zcool.cn/community/01996b57a7f6020000018c1bedef97.jpg"
+      },
+      {
+        "image": "http://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg"
+      }
+    ],
+    "commodity": [
+      {
+        "name": "日用品",
+        "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+      },
+      {
+        "name": "衣服",
+        "logopath": "https://upload-images.jianshu.io/upload_images/5601345-b47b97af818d1e9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+      },
+      {
+        "name": "化妆品",
+        "logopath": "https://upload-images.jianshu.io/upload_images/5601345-e2d8e0d2233772e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+      },
+      {
+        "name": "玩具",
+        "logopath": "https://upload-images.jianshu.io/upload_images/5601345-127ff285ca45c1d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+      },
+      {
+        "name": "裤子",
+        "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+      },
+      {
+        "name": "鞋子",
+        "logopath": "https://upload-images.jianshu.io/upload_images/5601345-b47b97af818d1e9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+      },
+      {
+        "name": "运动裤",
+        "logopath": "https://upload-images.jianshu.io/upload_images/5601345-e2d8e0d2233772e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+      },
+      {
+        "name": "杯子",
+        "logopath": "https://upload-images.jianshu.io/upload_images/5601345-127ff285ca45c1d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+      },
+      {
+        "name": "手表",
+        "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+      },
+      {
+        "name": "汽车",
+        "logopath": "https://upload-images.jianshu.io/upload_images/5601345-b47b97af818d1e9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+      },
+      {
+        "name": "自行车",
+        "logopath": "https://upload-images.jianshu.io/upload_images/5601345-e2d8e0d2233772e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+      },
+      {
+        "name": "电脑",
+        "logopath": "https://upload-images.jianshu.io/upload_images/5601345-127ff285ca45c1d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+      }
+    ]
+  }
+
+
