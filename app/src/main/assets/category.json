@@ -1,0 +1,146 @@
+[
+  {
+    "name": "女装",
+
+    "subCates": [
+      {
+        "name": "裙子",
+        "commodity": [{
+            "name": "花裙",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "连衣裙",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-b47b97af818d1e9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "牛仔裙",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-e2d8e0d2233772e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          }
+
+        ]
+      },
+      {
+        "name": "裤子",
+        "commodity": [{
+            "name": "工装裤",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "经典直筒",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-b47b97af818d1e9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "时尚修身",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-e2d8e0d2233772e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          }, {
+            "name": "哈伦裤",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-127ff285ca45c1d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "休闲短裤",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          }
+
+        ]
+      }
+
+    ]
+  },
+  {
+    "name": "男装",
+
+    "subCates": [
+      {
+        "name": "T恤",
+        "commodity": [{
+            "name": "polo杉",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "纯棉T恤",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-b47b97af818d1e9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "短袖T恤",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-e2d8e0d2233772e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          }
+
+        ]
+      },
+      {
+        "name": "短裤",
+        "commodity": [{
+            "name": "工装裤",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "经典直筒",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-b47b97af818d1e9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "时尚修身",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-e2d8e0d2233772e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          }, {
+            "name": "哈伦裤",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-127ff285ca45c1d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "休闲短裤",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          }
+
+        ]
+      }
+    ]
+  },
+
+  {
+    "name": "儿童",
+
+    "subCates": [
+      {
+        "name": "玩具",
+        "commodity": [{
+          "name": "超人",
+          "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+        },
+          {
+            "name": "汽车",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-b47b97af818d1e9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "摩托车",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-e2d8e0d2233772e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          }
+
+        ]
+      },
+      {
+        "name": "漫画",
+        "commodity": [{
+          "name": "日漫",
+          "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+        },
+          {
+            "name": "国产",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-b47b97af818d1e9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "斗罗大陆",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-e2d8e0d2233772e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          }, {
+            "name": "雪鹰领主",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-127ff285ca45c1d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "柯南",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          }
+
+        ]
+      }
+
+    ]
+  }
+]

@@ -1,5 +1,7 @@
 package com.test.reviewandroid.recycleView.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,7 @@ import java.io.Serializable;
  * @author: lady_zhou
  * @Description:
  */
-public class CommodityBean implements Serializable {
+public class CommodityBean implements Serializable, MultiItemEntity {
     private String name;
     private String logopath;
 
@@ -33,5 +35,10 @@ public class CommodityBean implements Serializable {
                 "name='" + name + '\'' +
                 ", logopath='" + logopath + '\'' +
                 '}';
+    }
+
+    @Override
+    public int getItemType() {
+        return 1;
     }
 }

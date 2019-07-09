@@ -33,6 +33,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
+/**
+ * @createTime: 2019-07-04
+ * @author  lady_zhou
+ * @Description 商城首页复杂布局
+ */
 public class ComplexLayoutActivity extends AppCompatActivity {
     private static final String TAG = "ComplexLayoutActivity";
     @BindView(R.id.rl_list)

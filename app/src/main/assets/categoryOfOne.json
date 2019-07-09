@@ -1,0 +1,49 @@
+[
+  {
+    "name": "女装",
+
+    "subCates": [
+      {
+        "name": "裙子",
+        "commodity": [{
+            "name": "花裙",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "连衣裙",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-b47b97af818d1e9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "牛仔裙",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-e2d8e0d2233772e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          }
+
+        ]
+      }
+
+    ]
+  },
+  {
+    "name": "男装",
+
+    "subCates": [
+      {
+        "name": "T恤",
+        "commodity": [{
+            "name": "polo杉",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-aef6a91b092fcb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "纯棉T恤",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-b47b97af818d1e9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          },
+          {
+            "name": "短袖T恤",
+            "logopath": "https://upload-images.jianshu.io/upload_images/5601345-e2d8e0d2233772e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+          }
+
+        ]
+      }
+    ]
+  }
+]
