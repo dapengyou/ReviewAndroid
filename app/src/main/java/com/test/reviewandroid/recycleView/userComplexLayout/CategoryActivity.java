@@ -114,7 +114,7 @@ public class CategoryActivity extends AppCompatActivity {
 
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                if (mIndex <= mCategoryBeans.size()) {
+                if (mIndex < mCategoryBeans.size() - 1) {
                     mIndex++;
                 }
                 changeData(mIndex);
