@@ -12,12 +12,9 @@ import android.view.View;
 
 import com.test.reviewandroid.activity.AllAnimationActivity;
 import com.test.reviewandroid.activity.LineActivity;
-import com.test.reviewandroid.activity.fourComponents.ReviewServiceActivity;
 import com.test.reviewandroid.net.DownLoadApkActivity;
-import com.test.reviewandroid.net.HttpResumeActivity;
-import com.test.reviewandroid.net.OkHttpActivity;
-import com.test.reviewandroid.recycleView.bean.CategoryBean;
 import com.test.reviewandroid.recycleView.userComplexLayout.CategoryActivity;
+import com.test.reviewandroid.recycleView.userComplexLayout.CollapsibleActivity;
 import com.test.reviewandroid.recycleView.userComplexLayout.ComplexLayoutActivity;
 import com.test.reviewandroid.viewEvent.ViewEventActivity;
 
@@ -73,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.bt_recycleview:
 //                startActivity(new Intent(this, ComplexLayoutActivity.class));
-                startActivity(new Intent(this, CategoryActivity.class));
+//                startActivity(new Intent(this, CategoryActivity.class));
+                startActivity(new Intent(this, CollapsibleActivity.class));
 
                 break;
 
