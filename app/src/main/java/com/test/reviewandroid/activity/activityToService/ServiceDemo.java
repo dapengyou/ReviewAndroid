@@ -26,6 +26,7 @@ public class ServiceDemo extends Service {
             mTimer = new Timer();
         }
         super.onCreate();
+        Log.d(TAG, "方法：onCreate: 服务的onCreate");
     }
 
     @Override

@@ -38,4 +38,6 @@ dependencies {
     implementation rootProject.ext.dependencies.gson
     implementation rootProject.ext.dependencies.glide
     implementation rootProject.ext.dependencies.smartRefreshLayout
+
+    implementation 'com.jakewharton:disklrucache:2.0.2'
 }
