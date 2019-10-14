@@ -59,8 +59,7 @@ public class FlowLayout extends ViewGroup {
 
         //整个流式布局的
         int flowlayoutWidth = 0;//所有行中宽度的最大值
-        int flowlayoutHeight = 0;//所有行的高度的累加
-//        int flowlayoutHeight = getPaddingTop() + getPaddingBottom();//所有行的高度的累加
+        int flowlayoutHeight = getPaddingTop() + getPaddingBottom();//所有行的高度的累加
 
         //初始化参数列表
         init();
@@ -85,15 +84,12 @@ public class FlowLayout extends ViewGroup {
             marginBottom = Math.max(0, layoutParams.bottomMargin);
 
             //获取到当前子View的测量的宽度/高度
-            int childWidth = child.getMeasuredWidth();
-            int childHeight = child.getMeasuredHeight();
-//            int childWidth = child.getMeasuredWidth() + marginLeft + marginRight;
-//            int childHeight = child.getMeasuredHeight() + marginTop + marginBottom;
+            int childWidth = child.getMeasuredWidth() + marginLeft + marginRight;
+            int childHeight = child.getMeasuredHeight() + marginTop + marginBottom;
 
             //看下当前的行的剩余的宽度是否可以容纳下一个子View,
             // 如果放不下，换行 保存当前行的所有子View,累加行高，当前的宽度，高度 置零
-            if (lineWidth + childWidth > widthSize) {//就得换行
-//            if (lineWidth + childWidth > widthSize - getPaddingRight() - getPaddingLeft()) {//就得换行
+            if (lineWidth + childWidth > widthSize - getPaddingRight() - getPaddingLeft()) {//就得换行
                 views.add(lineViews);
                 lineViews = new ArrayList<>();//创建新的一行
                 flowlayoutWidth = Math.max(flowlayoutWidth, lineWidth);
@@ -116,10 +112,8 @@ public class FlowLayout extends ViewGroup {
             }
         }
         //FlowLayout最终宽高
-        setMeasuredDimension(widthMode == MeasureSpec.EXACTLY ? widthSize : flowlayoutWidth
-                , heighMode == MeasureSpec.EXACTLY ? heighSize : flowlayoutHeight);
-// setMeasuredDimension(widthMode == MeasureSpec.EXACTLY ? widthSize + getPaddingLeft() + getPaddingRight() : flowlayoutWidth
-//                , heighMode == MeasureSpec.EXACTLY ? heighSize + getPaddingTop() + getPaddingBottom() : flowlayoutHeight);
+ setMeasuredDimension(widthMode == MeasureSpec.EXACTLY ? widthSize + getPaddingLeft() + getPaddingRight() : flowlayoutWidth
+                , heighMode == MeasureSpec.EXACTLY ? heighSize + getPaddingTop() + getPaddingBottom() : flowlayoutHeight);
 
     }
 
@@ -132,10 +126,8 @@ public class FlowLayout extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int lineCount = views.size();
-        int currX = 0 ;
-        int currY = 0 ;
-//        int currX = 0 + getPaddingLeft();
-//        int currY = 0 + getPaddingTop();
+        int currX = 0 + getPaddingLeft();
+        int currY = 0 + getPaddingTop();
         for (int i = 0; i < lineCount; i++) {//大循环，所有的子View 一行一行的布局
             List<View> lineViews = views.get(i);//取出一行
             int lineHeight = heights.get(i);//取出这一行的高度值
@@ -152,11 +144,9 @@ public class FlowLayout extends ViewGroup {
 
                 child.layout(left, top, right, bottom);
                 //确定下一个view的left
-                currX += child.getMeasuredWidth();
-//                currX += child.getMeasuredWidth() + layoutParams.leftMargin + layoutParams.rightMargin + getPaddingLeft();
+                currX += child.getMeasuredWidth() + layoutParams.leftMargin + layoutParams.rightMargin + getPaddingLeft();
             }
-            currX = 0 ;
-//            currX = 0 + getPaddingLeft();
+            currX = 0 + getPaddingLeft();
             currY += lineHeight;
         }
     }
