@@ -9,6 +9,7 @@ import com.test.reviewandroid.R;
 import com.test.reviewandroid.activity.fourComponents.ReviewServiceActivity;
 import com.test.reviewandroid.view.ClockViewActivity;
 import com.test.reviewandroid.view.FinishActivity;
+import com.test.reviewandroid.view.FlowLayoutActivity;
 import com.test.reviewandroid.view.ImageViewActivity;
 import com.test.reviewandroid.view.MyViewGroupActivity;
 import com.test.reviewandroid.view.SearchActivity;
@@ -31,7 +32,7 @@ public class AllAnimationActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.bt_view, R.id.bt_image, R.id.bt_search, R.id.bt_finish, R.id.bt_myself})
+    @OnClick({R.id.bt_view, R.id.bt_image, R.id.bt_search, R.id.bt_finish, R.id.bt_myself, R.id.bt_flow})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_view:
@@ -48,6 +49,9 @@ public class AllAnimationActivity extends AppCompatActivity {
                 break;
             case R.id.bt_myself:
                 startActivity(new Intent(this, MyViewGroupActivity.class));
+                break;
+            case R.id.bt_flow:
+                startActivity(new Intent(this, FlowLayoutActivity.class));
                 break;
         }
     }

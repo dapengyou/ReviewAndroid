@@ -14,8 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.MyViewGroupActivity"></activity>
-        <activity android:name=".viewpager.ViewPagerActivity"></activity>
+        <activity android:name=".view.FlowLayoutActivity"></activity>
+        <activity android:name=".view.MyViewGroupActivity" />
+        <activity android:name=".viewpager.ViewPagerActivity" />
         <activity android:name=".recycleView.userComplexLayout.CollapsibleActivity" />
         <activity android:name=".recycleView.userComplexLayout.CategoryActivity" />
         <activity
