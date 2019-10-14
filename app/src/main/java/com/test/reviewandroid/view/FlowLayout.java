@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.Scroller;
 
 import com.test.reviewandroid.R;
 
@@ -31,6 +34,20 @@ public class FlowLayout extends ViewGroup {
     private List<List<View>> views;//所有的行  一行一行的存储
     private List<Integer> heights;//每一行的高度
 
+
+    //触摸滑动
+    private boolean scrollable = false;//是否可滑动
+    private int measureHeight;//代表本身的测量高度
+    private int realHeight;//表示内容的高度
+
+    private int mTouchSlop;//用来判断是不是一次滑动
+    //最近一次的xy位置
+    private float mLastInterceptX = 0;
+    private float mLastInterceptY = 0;
+    private float mLastY = 0;
+
+    private Scroller mScroller;
+
     public FlowLayout(Context context) {
         this(context, null);
     }
@@ -42,8 +59,90 @@ public class FlowLayout extends ViewGroup {
 
     public FlowLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        //获取最小的滑动距离
+        ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
+        mTouchSlop = viewConfiguration.getScaledTouchSlop();
+        mScroller = new Scroller(context);
     }
 
+
+    /**
+     * @createTime: 2019-10-14
+     * @author lady_zhou
+     * @Description 拦截处理
+     */
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        boolean intercepted = false;
+        //获取点击的位置
+        float xInterceptX = ev.getX();
+        float yInterceptY = ev.getY();
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mLastInterceptX = xInterceptX;
+                mLastInterceptY = yInterceptY;
+                intercepted = false;
+
+                break;
+            case MotionEvent.ACTION_MOVE:
+                //计算移动的距离
+                float dx = xInterceptX - mLastInterceptX;
+                float dy = yInterceptY - mLastInterceptY;
+                //进行判断,纵向滑动进行拦截
+                if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > mTouchSlop) {
+                    intercepted = true;
+                } else {
+                    intercepted = false;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                intercepted = false;
+                break;
+        }
+
+        //更新位置
+        mLastInterceptX = xInterceptX;
+        mLastInterceptY = yInterceptY;
+        return intercepted;
+    }
+
+    /**
+     * @createTime: 2019-10-14
+     * @author lady_zhou
+     * @Description 拦截成功后交给onTouchEvent处理滑动
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (!scrollable) {
+            return super.onTouchEvent(event);
+        }
+
+        float currY = event.getY();//当前y位置
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mLastY = currY;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                //本次手势获取了多大的距离
+                float dy = mLastY - currY;
+                //已经偏移了的距离
+                int oldScrollY = getScrollY();
+                int scrollY = oldScrollY + (int) dy;//这是本次需要偏移的距离 = 之前已经偏移了的距离 + 本次手势滑动的距离
+                if (scrollY < 0) {
+                    scrollY = 0;
+                }
+                if (scrollY > realHeight - measureHeight) {
+                    scrollY = realHeight - measureHeight;
+                }
+                scrollTo(0, scrollY);
+                mLastY = currY;
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+        }
+
+        return super.onTouchEvent(event);
+    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -112,7 +211,7 @@ public class FlowLayout extends ViewGroup {
             }
         }
         //FlowLayout最终宽高
- setMeasuredDimension(widthMode == MeasureSpec.EXACTLY ? widthSize + getPaddingLeft() + getPaddingRight() : flowlayoutWidth
+        setMeasuredDimension(widthMode == MeasureSpec.EXACTLY ? widthSize + getPaddingLeft() + getPaddingRight() : flowlayoutWidth
                 , heighMode == MeasureSpec.EXACTLY ? heighSize + getPaddingTop() + getPaddingBottom() : flowlayoutHeight);
 
     }
