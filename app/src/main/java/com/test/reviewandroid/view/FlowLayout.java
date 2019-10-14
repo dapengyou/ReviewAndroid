@@ -2,6 +2,7 @@ package com.test.reviewandroid.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v4.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -46,7 +47,7 @@ public class FlowLayout extends ViewGroup {
     private float mLastInterceptY = 0;
     private float mLastY = 0;
 
-    private Scroller mScroller;
+    private Scroller mScroller;//用来做滑动辅助处理的
 
     public FlowLayout(Context context) {
         this(context, null);
@@ -61,7 +62,7 @@ public class FlowLayout extends ViewGroup {
         super(context, attrs, defStyleAttr);
         //获取最小的滑动距离
         ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
-        mTouchSlop = viewConfiguration.getScaledTouchSlop();
+        mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(viewConfiguration);
         mScroller = new Scroller(context);
     }
 
@@ -109,7 +110,7 @@ public class FlowLayout extends ViewGroup {
     /**
      * @createTime: 2019-10-14
      * @author lady_zhou
-     * @Description 拦截成功后交给onTouchEvent处理滑动
+     * @Description 拦截成功后交给onTouchEvent   处理滑动
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -126,15 +127,8 @@ public class FlowLayout extends ViewGroup {
                 //本次手势获取了多大的距离
                 float dy = mLastY - currY;
                 //已经偏移了的距离
-                int oldScrollY = getScrollY();
-                int scrollY = oldScrollY + (int) dy;//这是本次需要偏移的距离 = 之前已经偏移了的距离 + 本次手势滑动的距离
-                if (scrollY < 0) {
-                    scrollY = 0;
-                }
-                if (scrollY > realHeight - measureHeight) {
-                    scrollY = realHeight - measureHeight;
-                }
-                scrollTo(0, scrollY);
+                mScroller.startScroll(0, mScroller.getFinalY(), 0, (int) dy);
+                invalidate();
                 mLastY = currY;
                 break;
             case MotionEvent.ACTION_UP:
@@ -142,6 +136,28 @@ public class FlowLayout extends ViewGroup {
         }
 
         return super.onTouchEvent(event);
+    }
+
+    /**
+     * @createTime: 2019-10-14
+     * @author  lady_zhou
+     * @Description  通过invalidate  触发computeScroll
+     */
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if(mScroller.computeScrollOffset()){//判断是否滚动
+            int currY = mScroller.getCurrY();
+            if (currY < 0) {
+                currY = 0;
+            }
+            if (currY > realHeight - measureHeight) {
+                currY = realHeight - measureHeight;
+            }
+            scrollTo(0, currY);
+            postInvalidate();
+
+        }
     }
 
     @Override

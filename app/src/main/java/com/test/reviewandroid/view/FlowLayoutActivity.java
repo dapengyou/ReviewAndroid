@@ -19,7 +19,7 @@ public class FlowLayoutActivity extends AppCompatActivity {
     }
 
     private void addView() {
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 50; i++) {
             //定义Button的布局
             ViewGroup.LayoutParams vlp = new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -30,10 +30,10 @@ public class FlowLayoutActivity extends AppCompatActivity {
             mFlowLayout.addView(button);
         }
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 50; i++) {
             //定义Button的布局
             ViewGroup.LayoutParams vlp = new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             Button button = new Button(this);
             button.setText("我再试试");
