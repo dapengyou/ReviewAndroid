@@ -6,9 +6,11 @@ import android.support.v4.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.OverScroller;
 import android.widget.Scroller;
 
 import com.test.reviewandroid.R;
@@ -47,7 +49,14 @@ public class FlowLayout extends ViewGroup {
     private float mLastInterceptY = 0;
     private float mLastY = 0;
 
-    private Scroller mScroller;//用来做滑动辅助处理的
+    private OverScroller mScroller;//用来做滑动辅助处理的
+
+    //惯性滑动
+    private VelocityTracker mVelocityTracker;
+    private int mMinimumVelocity;
+    private int mMaximumVelocity;
+    private int mScrollDistance;
+
 
     public FlowLayout(Context context) {
         this(context, null);
@@ -63,9 +72,38 @@ public class FlowLayout extends ViewGroup {
         //获取最小的滑动距离
         ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
         mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(viewConfiguration);
-        mScroller = new Scroller(context);
+        mScroller = new OverScroller(context);
+
+        mMinimumVelocity = viewConfiguration.getScaledMinimumFlingVelocity();
+        mMaximumVelocity = viewConfiguration.getScaledMaximumFlingVelocity();
+        mScrollDistance = viewConfiguration.getScaledOverscrollDistance();
     }
 
+    private void initVelocityTrackerIfNotExists() {
+        if (mVelocityTracker == null) {
+            mVelocityTracker = VelocityTracker.obtain();
+        }
+
+    }
+
+    private void recycleVelocityTracker() {
+        if (mVelocityTracker != null) {
+            mVelocityTracker.recycle();
+            mVelocityTracker = null;
+        }
+    }
+
+    public void fling(int velocityY) {
+        if (getChildCount() > 0) {
+            int height = measureHeight;
+            int bottom = realHeight;
+
+            mScroller.fling(getScrollX(), getScrollY(), 0, velocityY, 0, 0, 0,
+                    Math.max(0, bottom - height), 0, height / 2);
+
+            postInvalidateOnAnimation();
+        }
+    }
 
     /**
      * @createTime: 2019-10-14
@@ -117,10 +155,16 @@ public class FlowLayout extends ViewGroup {
         if (!scrollable) {
             return super.onTouchEvent(event);
         }
+        initVelocityTrackerIfNotExists();
+        mVelocityTracker.addMovement(event);
 
         float currY = event.getY();//当前y位置
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                if (!mScroller.isFinished()) {
+                    mScroller.abortAnimation();
+                }
+
                 mLastY = currY;
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -132,6 +176,17 @@ public class FlowLayout extends ViewGroup {
                 mLastY = currY;
                 break;
             case MotionEvent.ACTION_UP:
+                //滑动到顶部或底部回弹
+                final VelocityTracker velocityTracker = mVelocityTracker;
+                velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
+                int initialVelocity = (int) velocityTracker.getYVelocity();
+
+                if ((Math.abs(initialVelocity) > mMinimumVelocity)) {
+                    fling(-initialVelocity);
+                } else if (mScroller.springBack(getScrollX(), getScrollY(), 0, 0, 0,
+                        (realHeight - measureHeight))) {
+                    postInvalidateOnAnimation();
+                }
                 break;
         }
 
@@ -140,21 +195,21 @@ public class FlowLayout extends ViewGroup {
 
     /**
      * @createTime: 2019-10-14
-     * @author  lady_zhou
-     * @Description  通过invalidate  触发computeScroll
+     * @author lady_zhou
+     * @Description 通过invalidate  触发computeScroll
      */
     @Override
     public void computeScroll() {
         super.computeScroll();
-        if(mScroller.computeScrollOffset()){//判断是否滚动
-            int currY = mScroller.getCurrY();
-            if (currY < 0) {
-                currY = 0;
-            }
-            if (currY > realHeight - measureHeight) {
-                currY = realHeight - measureHeight;
-            }
-            scrollTo(0, currY);
+        if (mScroller.computeScrollOffset()) {//判断是否滚动
+//            int currY = mScroller.getCurrY();
+//            if (currY < 0) {
+//                currY = 0;
+//            }
+//            if (currY > realHeight - measureHeight) {
+//                currY = realHeight - measureHeight;
+//            }
+            scrollTo(0, mScroller.getCurrY());
             postInvalidate();
 
         }
@@ -168,6 +223,7 @@ public class FlowLayout extends ViewGroup {
         int heighMode = MeasureSpec.getMode(heightMeasureSpec);
         int heighSize = MeasureSpec.getSize(heightMeasureSpec);
 
+        measureHeight = heighSize;
         //记录当前行的宽度和高度
         int lineWidth = 0;//宽度是当前行子View的宽度之和
         int lineHeight = 0;//高度是当前行所有子View中高度的最大值
@@ -226,6 +282,10 @@ public class FlowLayout extends ViewGroup {
                 views.add(lineViews);
             }
         }
+
+        realHeight = flowlayoutHeight;
+        scrollable = realHeight > measureHeight;
+
         //FlowLayout最终宽高
         setMeasuredDimension(widthMode == MeasureSpec.EXACTLY ? widthSize + getPaddingLeft() + getPaddingRight() : flowlayoutWidth
                 , heighMode == MeasureSpec.EXACTLY ? heighSize + getPaddingTop() + getPaddingBottom() : flowlayoutHeight);

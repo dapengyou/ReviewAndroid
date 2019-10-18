@@ -73,6 +73,7 @@
         <activity android:name=".activity.activityResult.ActivityResultActivity" />
         <activity android:name=".activity.activityResult.ResultActivity" />
         <activity android:name=".scrollEvent.DemoActivity_1" />
+        <activity android:name=".view.SelfDrawableActivity"/>
     </application>
 
 </manifest>
