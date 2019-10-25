@@ -187,81 +187,81 @@ public class TaskClearDrawable extends Drawable {
         mLinePaint.setPathEffect(new DashPathEffect(new float[]{20,10},0));
         canvas.drawLine(0,mCenterY,mWidth,mCenterY,mLinePaint);
         canvas.drawLine(mCenterX,0,mCenterX,mHeight,mLinePaint);
-//        //根据五种不同的状态来绘制
+        //根据五种不同的状态来绘制
+
+        switch (mAnimState){
+            case STATE_ORIGIN://绘制mCircleBitmap 绘制叉
+                length = mCrossLen * sin_45/ 2.0f;
+                x1 = mCenterX - length;
+                y1 = mCenterY - length;
+                x2 = mCenterX + length;
+                y2 = mCenterY + length;
+
+                x3 = mCenterX + length;
+                y3 = mCenterY - length;
+                x4 = mCenterX - length;
+                y4 = mCenterY + length;
+                drawPath(canvas,mPaint,x1,y1,x2,y2,x3,y3,x4,y4);//画叉
+                canvas.drawBitmap(mCircleBitmap,0,0, null);//画圆圈
+                break;
+            case STATE_ROTATE://旋转 matrix mCircleBitmap 绘制叉 drawPath 两个点成线
+                float degree = ROTATE_DEGREE_TOTAL * mRotateDegreeScale;
+                mRotateMatrix.setRotate(degree,mCenterX,mCenterY);
+                canvas.drawBitmap(mCircleBitmap,mRotateMatrix,null);//画圆圈
+
+                length = mCleanningScale*mCrossLen * sin_45/ 2.0f;
+                x1 = mCenterX - length;
+                y1 = mCenterY - length;
+                x2 = mCenterX + length;
+                y2 = mCenterY + length;
+
+                x3 = mCenterX + length;
+                y3 = mCenterY - length;
+                x4 = mCenterX - length;
+                y4 = mCenterY + length;
+                drawPath(canvas,mPaint,x1,y1,x2,y2,x3,y3,x4,y4);//画叉
+                break;
+            case STATE_UP://根据mCenterX, mCenterY - mPointUPLen * mScale 绘制圆点
+                mPaint.setStyle(Paint.Style.FILL);
+                mPaint.setStrokeWidth(mPaintWidthOther);
+                float upLen = mPointUpLen * mScale;
+                canvas.drawCircle(mCenterX,mCenterY - upLen,mPointRadius,mPaint);
+                canvas.drawBitmap(mCircleBitmap,0,0, null);//画圆圈
+                break;
+            case STATE_DOWN:// //根据mCenterX, mCenterY + mPointDownLen * mScale 绘制圆点
+                mPaint.setStyle(Paint.Style.FILL);
+                mPaint.setStrokeWidth(mPaintWidthOther);
+                float downPosition = (mPointDownLen + mPointUpLen) * mScale;
+                canvas.drawCircle(mCenterX,mCenterY - mPointUpLen + downPosition,mPointRadius,mPaint);
+                canvas.drawBitmap(mCircleBitmap,0,0, null);//画圆圈
+                break;
+            case STATE_FINISH://画勾勾 mCircleBitmap
+                mPaint.setStyle(Paint.Style.STROKE);
+                mPaint.setStrokeWidth(mPaintWidth);
+
+//                已知角度θ 半径r
+//                A（x,y）  中心点( cx,cy)
+//                x = r * cosθ
+//                y = r * sinθ
 //
-//        switch (mAnimState){
-//            case STATE_ORIGIN://绘制mCircleBitmap 绘制叉
-//                length = mCrossLen * sin_45/ 2.0f;
-//                x1 = mCenterX - length;
-//                y1 = mCenterY - length;
-//                x2 = mCenterX + length;
-//                y2 = mCenterY + length;
-//
-//                x3 = mCenterX + length;
-//                y3 = mCenterY - length;
-//                x4 = mCenterX - length;
-//                y4 = mCenterY + length;
-//                drawPath(canvas,mPaint,x1,y1,x2,y2,x3,y3,x4,y4);//画叉
-//                canvas.drawBitmap(mCircleBitmap,0,0, null);//画圆圈
-//                break;
-//            case STATE_ROTATE://旋转 matrix mCircleBitmap 绘制叉 drawPath 两个点成线
-//                float degree = ROTATE_DEGREE_TOTAL * mRotateDegreeScale;
-//                mRotateMatrix.setRotate(degree,mCenterX,mCenterY);
-//                canvas.drawBitmap(mCircleBitmap,mRotateMatrix,null);//画圆圈
-//
-//                length = mCleanningScale*mCrossLen * sin_45/ 2.0f;
-//                x1 = mCenterX - length;
-//                y1 = mCenterY - length;
-//                x2 = mCenterX + length;
-//                y2 = mCenterY + length;
-//
-//                x3 = mCenterX + length;
-//                y3 = mCenterY - length;
-//                x4 = mCenterX - length;
-//                y4 = mCenterY + length;
-//                drawPath(canvas,mPaint,x1,y1,x2,y2,x3,y3,x4,y4);//画叉
-//                break;
-//            case STATE_UP://根据mCenterX, mCenterY - mPointUPLen * mScale 绘制圆点
-//                mPaint.setStyle(Paint.Style.FILL);
-//                mPaint.setStrokeWidth(mPaintWidthOther);
-//                float upLen = mPointUpLen * mScale;
-//                canvas.drawCircle(mCenterX,mCenterY - upLen,mPointRadius,mPaint);
-//                canvas.drawBitmap(mCircleBitmap,0,0, null);//画圆圈
-//                break;
-//            case STATE_DOWN:// //根据mCenterX, mCenterY + mPointDownLen * mScale 绘制圆点
-//                mPaint.setStyle(Paint.Style.FILL);
-//                mPaint.setStrokeWidth(mPaintWidthOther);
-//                float downPosition = (mPointDownLen + mPointUpLen) * mScale;
-//                canvas.drawCircle(mCenterX,mCenterY - mPointUpLen + downPosition,mPointRadius,mPaint);
-//                canvas.drawBitmap(mCircleBitmap,0,0, null);//画圆圈
-//                break;
-//            case STATE_FINISH://画勾勾 mCircleBitmap
-//                mPaint.setStyle(Paint.Style.STROKE);
-//                mPaint.setStrokeWidth(mPaintWidth);
-//
-////                已知角度θ 半径r
-////                A（x,y）  中心点( cx,cy)
-////                x = r * cosθ
-////                y = r * sinθ
-////
-////                x1 = cx - r * cos40
-////                y1 =  cy  + mPointDownLen - r * sin40
-//                x1 = mCenterX - Math.abs(mScale * mForkLeftLen * cos_40);
-//                y1 = mCenterY + mPointDownLen - Math.abs(mScale * mForkLeftLen * sin_40);
-//                x2 = mCenterX;
-//                y2 = mCenterY + mPointDownLen;
-//                x3 = mCenterX;
-//                y3 = mCenterY + mPointDownLen;
-// //               x4 = cx - r * cos50
-////                y4 =  cy  + mPointDownLen - r * sin50
-//                x4 = mCenterX + Math.abs(mScale * mForkRightLen * cos_50);
-//                y4 = mCenterY + mPointDownLen - Math.abs(mScale * mForkRightLen * sin_50);
-//                drawPath(canvas,mPaint,x1,y1,x2,y2,x3,y3,x4,y4);
-//                canvas.drawBitmap(mCircleBitmap,0,0, null);//画圆圈
-//                break;
-//
-//            default:break;
-//        }
+//                x1 = cx - r * cos40
+//                y1 =  cy  + mPointDownLen - r * sin40
+                x1 = mCenterX - Math.abs(mScale * mForkLeftLen * cos_40);
+                y1 = mCenterY + mPointDownLen - Math.abs(mScale * mForkLeftLen * sin_40);
+                x2 = mCenterX;
+                y2 = mCenterY + mPointDownLen;
+                x3 = mCenterX;
+                y3 = mCenterY + mPointDownLen;
+ //               x4 = cx - r * cos50
+//                y4 =  cy  + mPointDownLen - r * sin50
+                x4 = mCenterX + Math.abs(mScale * mForkRightLen * cos_50);
+                y4 = mCenterY + mPointDownLen - Math.abs(mScale * mForkRightLen * sin_50);
+                drawPath(canvas,mPaint,x1,y1,x2,y2,x3,y3,x4,y4);
+                canvas.drawBitmap(mCircleBitmap,0,0, null);//画圆圈
+                break;
+
+            default:break;
+        }
 
     }
 
