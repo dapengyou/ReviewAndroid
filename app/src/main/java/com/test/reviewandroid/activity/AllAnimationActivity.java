@@ -14,6 +14,7 @@ import com.test.reviewandroid.view.ImageViewActivity;
 import com.test.reviewandroid.view.MyViewGroupActivity;
 import com.test.reviewandroid.view.SearchActivity;
 import com.test.reviewandroid.view.SelfDrawableActivity;
+import com.test.reviewandroid.view.TestViewActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,7 +35,7 @@ public class AllAnimationActivity extends AppCompatActivity {
     }
 
     @OnClick({R.id.bt_view, R.id.bt_image, R.id.bt_search, R.id.bt_finish, R.id.bt_myself,
-            R.id.bt_flow, R.id.bt_drawable})
+            R.id.bt_flow, R.id.bt_drawable, R.id.bt_test})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_view:
@@ -57,6 +58,9 @@ public class AllAnimationActivity extends AppCompatActivity {
                 break;
             case R.id.bt_drawable:
                 startActivity(new Intent(this, SelfDrawableActivity.class));
+                break;
+            case R.id.bt_test:
+                startActivity(new Intent(this, TestViewActivity.class));
                 break;
         }
     }

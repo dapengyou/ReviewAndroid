@@ -1,50 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/bt_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="秒表" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/bt_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="图片缩放" />
+        <Button
+            android:id="@+id/bt_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="秒表" />
 
-    <Button
-        android:id="@+id/bt_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="搜索" />
+        <Button
+            android:id="@+id/bt_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="图片缩放" />
 
-    <Button
-        android:id="@+id/bt_finish"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="完成动画" />
+        <Button
+            android:id="@+id/bt_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="搜索" />
 
-    <Button
-        android:id="@+id/bt_myself"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="自己定义的viewGroup" />
+        <Button
+            android:id="@+id/bt_finish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="完成动画" />
 
-    <Button
-        android:id="@+id/bt_flow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="流式布局" />
+        <Button
+            android:id="@+id/bt_myself"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自己定义的viewGroup" />
 
-    <Button
-        android:id="@+id/bt_drawable"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="自定义drawable" />
-</LinearLayout>
+        <Button
+            android:id="@+id/bt_flow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="流式布局" />
+
+        <Button
+            android:id="@+id/bt_drawable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自定义drawable" />
+
+        <Button
+            android:id="@+id/bt_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="练习写一个动态画圆动画" />
+    </LinearLayout>
+</ScrollView>

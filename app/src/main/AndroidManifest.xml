@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.FlowLayoutActivity"></activity>
+        <activity android:name=".view.TestViewActivity"></activity>
+        <activity android:name=".view.FlowLayoutActivity" />
         <activity android:name=".view.MyViewGroupActivity" />
         <activity android:name=".viewpager.ViewPagerActivity" />
         <activity android:name=".recycleView.userComplexLayout.CollapsibleActivity" />
@@ -73,7 +74,7 @@
         <activity android:name=".activity.activityResult.ActivityResultActivity" />
         <activity android:name=".activity.activityResult.ResultActivity" />
         <activity android:name=".scrollEvent.DemoActivity_1" />
-        <activity android:name=".view.SelfDrawableActivity"/>
+        <activity android:name=".view.SelfDrawableActivity" />
     </application>
 
 </manifest>
