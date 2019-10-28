@@ -1,5 +1,6 @@
 package com.test.reviewandroid.recycleView.userComplexLayout;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.test.reviewandroid.R;
+import com.test.reviewandroid.recycleView.BySelfRecycle.RvTestActivity;
 import com.test.reviewandroid.recycleView.adapter.CollapsibleAdapter;
 import com.test.reviewandroid.recycleView.bean.CategoryBean;
 import com.test.reviewandroid.recycleView.bean.SubCatesBean;
@@ -65,9 +67,17 @@ public class CollapsibleActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick(R.id.bt_scree)
-    public void onViewClicked() {
-        initPopuptWindow();
+    @OnClick({R.id.bt_scree, R.id.bt_rv})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.bt_scree:
+                initPopuptWindow();
+                break;
+            case R.id.bt_rv:
+                startActivity(new Intent(this, RvTestActivity.class));
+                break;
+        }
+
     }
 
     protected void initPopuptWindow() {
@@ -106,8 +116,8 @@ public class CollapsibleActivity extends AppCompatActivity {
      * 自定义setAdapter
      */
     private void setAdapter() {
-            adapter = new CollapsibleAdapter(this, mDatas);
-            mExpandableListView.setAdapter(adapter);
+        adapter = new CollapsibleAdapter(this, mDatas);
+        mExpandableListView.setAdapter(adapter);
 //        if (adapter == null) {
 //        } else {
 //            adapter.flashData(mDatas);
