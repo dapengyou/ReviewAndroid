@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.test.reviewandroid.R;
 
@@ -34,8 +35,14 @@ public class RvTestAdapter extends RecyclerView.Adapter<RvTestAdapter.RvTestView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RvTestViewHolder rvTestViewHolder, int position) {
+    public void onBindViewHolder(@NonNull RvTestViewHolder rvTestViewHolder, final int position) {
         rvTestViewHolder.mTextView.setText(list.get(position));
+        rvTestViewHolder.mTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"点击了"+position,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
