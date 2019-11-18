@@ -35,7 +35,8 @@ public class LineActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.tv_activity_livelift, R.id.tv_activity_fragment, R.id.tv_activity_service, R.id.tv_activity_activity})
+    @OnClick({R.id.tv_activity_livelift, R.id.tv_activity_fragment, R.id.tv_activity_service,
+            R.id.tv_activity_activity, R.id.tv_activity_install})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_activity_livelift:
@@ -51,8 +52,12 @@ public class LineActivity extends AppCompatActivity {
 //                startActivity(new Intent(this, ActivityToServiceActivity.class));
                 startActivity(new Intent(this, ServiceDemoActivity.class));
                 break;
+            case R.id.tv_activity_install:
+                startActivity(new Intent(this, InstallActivity.class));
+                break;
         }
     }
+
     @Override
     protected void onStart() {
         super.onStart();
